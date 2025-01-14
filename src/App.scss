@@ -1,5 +1,6 @@
 @import './styles/variables.scss';
 @import './styles/fonts.scss';
+@import './styles/components/header.scss';
 
 .App {
     background-color: pink;
@@ -22,6 +23,4 @@ html {
 .container {
     max-width: 1800px;
     width: 100%;
-    background-color: $primary-color;
-    color: $bg-color;
 }
