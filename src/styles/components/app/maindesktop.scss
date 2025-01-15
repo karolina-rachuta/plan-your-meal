@@ -27,15 +27,37 @@
             }
 
             .widget__box {
-                border: 1px dashed $second-color;
+                border: 2px dashed $primary-color;
                 padding: 10px;
                 width: 40%;
                 height: 100%;
+                cursor: pointer;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 10px;
+                background-color: rgb(197, 233, 217);
+                color: $primary-color;
 
                 &--right {
                     width: 100%;
                     height: 100%;
+                    cursor: auto;
+                    flex-direction: row;
+                    align-items: center;
+                    justify-content: start;
+                    text-align: left;
+
+                    .widget__add--right {
+                        width: 25px;
+                    }
                 }
+
+                .widget__add {
+                    width: 100%;
+                }
+
             }
         }
     }
