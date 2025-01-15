@@ -14,7 +14,7 @@
         justify-content: space-evenly;
 
         .maindesktop__widget {
-            width: 40%;
+            width: 30%;
             text-align: center;
             display: flex;
             flex-direction: row;
@@ -22,7 +22,7 @@
 
             &--col {
                 flex-direction: column;
-
+                width: 60%;
 
             }
 

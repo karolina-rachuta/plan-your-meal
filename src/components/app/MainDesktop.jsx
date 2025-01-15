@@ -1,12 +1,22 @@
 import React from 'react';
 
-function MainDesktop() {
+function MainDesktop({ handleScreenChange }) {
     return (
         <div className="maindesktop__container">
             <div className="maindesktop__top">
                 <div className="maindesktop__widget">
-                    <div className="widget__box">add recipe</div>
-                    <div className="widget__box">add plan</div>
+                    <button
+                        className="widget__box"
+                        onClick={() => handleScreenChange(4)}
+                    >
+                        add recipe
+                    </button>
+                    <button
+                        className="widget__box"
+                        onClick={() => handleScreenChange(5)}
+                    >
+                        add plan
+                    </button>
                 </div>
                 <div className="maindesktop__widget maindesktop__widget--col">
                     <p className="widget__box widget__box--right">
