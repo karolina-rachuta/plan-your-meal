@@ -1,0 +1,29 @@
+.sidebar__container {
+    background-color: $third-color;
+    width: 30%;
+    height: 100vh;
+    color: $bg-color;
+    display: flex;
+    flex-direction: column;
+
+
+    .sidebar__navlink {
+        padding: 20px;
+        cursor: pointer;
+        border-left: 5px solid transparent;
+        position: relative;
+
+        &:hover {
+            border-left: 5px solid $hover-color;
+            color: $hover-color;
+
+            &::after {
+                content: "►";
+                font-weight: bold;
+                position: absolute;
+                right: 30px;
+                color: $hover-color;
+            }
+        }
+    }
+}

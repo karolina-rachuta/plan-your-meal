@@ -87,6 +87,11 @@
             text-decoration: none;
             text-align: center;
             position: relative;
+            cursor: pointer;
+
+            &--active {
+                color: $hover-color;
+            }
 
             &::after {
                 content: "";
@@ -105,8 +110,6 @@
                     border-bottom-color: $hover-color;
                 }
             }
-
-
         }
     }
 

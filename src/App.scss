@@ -2,6 +2,7 @@
 @import './styles/fonts.scss';
 @import './styles/components/homepage/header.scss';
 @import './styles/components/homepage/hero.scss';
+@import './styles/components/app/sidebar.scss';
 
 .App {
     background-color: pink;
@@ -16,7 +17,7 @@
 body,
 html {
     font-size: $font-base-size;
-    font-family: 'open_sansregular', sans-serif;
+    // font-family: 'open_sansregular', sans-serif;
     width: 100%;
     margin-inline: auto;
 }

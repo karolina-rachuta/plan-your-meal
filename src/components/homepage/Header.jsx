@@ -22,7 +22,10 @@ function Header() {
                 <nav
                     className={open ? 'header__navbar open' : 'header__navbar'}
                 >
-                    <Link to="/app" className="header__link">
+                    <Link
+                        to="/app"
+                        className="header__link header__link--active"
+                    >
                         Plan your meals
                     </Link>
                     <ScrollLink to="about" className="header__link">
