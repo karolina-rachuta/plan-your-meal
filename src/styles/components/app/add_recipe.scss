@@ -1,0 +1,48 @@
+.recipe__container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    .recipe__title {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .recipe__top {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        width: 100%;
+        justify-content: start;
+
+        .recipe__row {
+            display: flex;
+            flex-direction: row;
+            gap: 20px;
+            width: 100%;
+
+            .recipe__label {
+                width: 200px;
+            }
+
+            .recipe__input {
+                max-width: 800px;
+                width: 100%;
+            }
+        }
+    }
+
+    .recipe__bottom {
+        display: flex;
+        width: 100%;
+        gap: 20px;
+        align-items: center;
+
+        justify-content: space-evenly;
+
+
+        .recipe__col {}
+    }
+}
