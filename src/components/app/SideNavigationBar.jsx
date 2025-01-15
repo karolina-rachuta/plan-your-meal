@@ -1,11 +1,26 @@
 import React from 'react';
 
-function SideNavigationBar() {
+function SideNavigationBar({ handleScreenChange }) {
     return (
         <div className="sidebar__container">
-            <p className="sidebar__navlink">Main Desktop</p>
-            <p className="sidebar__navlink">Recipies</p>
-            <p className="sidebar__navlink">Meal Plans</p>
+            <p
+                className="sidebar__navlink"
+                onClick={() => handleScreenChange(1)}
+            >
+                Main Desktop
+            </p>
+            <p
+                className="sidebar__navlink"
+                onClick={() => handleScreenChange(2)}
+            >
+                Recipes
+            </p>
+            <p
+                className="sidebar__navlink"
+                onClick={() => handleScreenChange(3)}
+            >
+                Meal Plans
+            </p>
         </div>
     );
 }
