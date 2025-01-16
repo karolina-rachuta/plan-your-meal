@@ -23,8 +23,12 @@ function App() {
                 )}
                 {screenNumber === 2 && <Recipes />}
                 {screenNumber === 3 && <Schedules />}
-                {screenNumber === 4 && <NewRecipe />}
-                {screenNumber === 5 && <NewSchedule />}
+                {screenNumber === 4 && (
+                    <NewRecipe handleScreenChange={handleScreenChange} />
+                )}
+                {screenNumber === 5 && (
+                    <NewSchedule handleScreenChange={handleScreenChange} />
+                )}
             </div>
         </div>
     );

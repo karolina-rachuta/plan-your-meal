@@ -1,18 +1,32 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import Add from '../../assets/add_plus.png';
 import Edit from '../../assets/edit_modify_icon.png';
 import TrashCan from '../../assets/trash_can_icon.png';
+import { RecipeContext } from '../../contex/RecipeContext';
 
-function NewRecipe() {
-    const [recipe, setRecipe] = useState({
-        name: '',
-        description: '',
-        instructions: [],
-        ingredients: [],
-    });
+function NewRecipe({ handleScreenChange }) {
+    const { addRecipeToRecipesList, recipesList, recipe, setRecipe } =
+        useContext(RecipeContext);
+
     const [newInstruction, setNewInstruction] = useState('');
     const [newIngredient, setNewIngredient] = useState('');
     const [editingIndex, setEditingIndex] = useState(null);
+
+    function handleSavingRecipe() {
+        if (recipe.name && recipe.description) {
+            addRecipeToRecipesList(recipe);
+            setRecipe({
+                name: '',
+                description: '',
+                instructions: [],
+                ingredients: [],
+            });
+            handleScreenChange(1);
+        } else {
+            alert('Please provide a recipe name and description.');
+        }
+    }
+
     function handleAddingInstruction() {
         if (editingIndex !== null) {
             const updatedInstructions = [...recipe.instructions];
@@ -80,7 +94,7 @@ function NewRecipe() {
         <div className="maindesktop__container recipe__container">
             <div className="recipe__title">
                 <h1>Add Recipe</h1>
-                <button>Save and Close</button>
+                <button onClick={handleSavingRecipe}>Save and Close</button>
             </div>
             <div className="recipe__top">
                 <div className="recipe__row">

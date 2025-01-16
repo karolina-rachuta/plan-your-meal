@@ -1,6 +1,6 @@
 import React from 'react';
 
-function NewSchedule() {
+function NewSchedule({ handleScreenChange }) {
     return <div className="maindesktop__container">new schedule</div>;
 }
 
