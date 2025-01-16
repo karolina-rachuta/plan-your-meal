@@ -30,6 +30,24 @@ function NewRecipe() {
         }));
         setNewIngredient('');
     }
+
+    function handleDeletingIngredient(index) {
+        const updatedIngredients = recipe.ingredients.filter(
+            (_, id) => id !== index
+        );
+        setRecipe((prev) => ({
+            ...prev,
+            ingredients: updatedIngredients,
+        }));
+    }
+
+    function handleDeletingInstruction(index) {
+        const updatedInstructions = recipe.instructions.filter(
+            (_, id) => id !== index
+        );
+        setRecipe((prev) => ({ ...prev, instructions: updatedInstructions }));
+    }
+
     return (
         <div className="maindesktop__container recipe__container">
             <div className="recipe__title">
@@ -102,6 +120,9 @@ function NewRecipe() {
                                         src={TrashCan}
                                         alt=""
                                         className="icon"
+                                        onClick={() =>
+                                            handleDeletingInstruction(index)
+                                        }
                                     />
                                 </li>
                             ))}
@@ -137,6 +158,9 @@ function NewRecipe() {
                                         src={TrashCan}
                                         alt=""
                                         className="icon"
+                                        onClick={() =>
+                                            handleDeletingIngredient(index)
+                                        }
                                     />
                                 </li>
                             ))}
