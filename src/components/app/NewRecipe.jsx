@@ -12,22 +12,40 @@ function NewRecipe() {
     });
     const [newInstruction, setNewInstruction] = useState('');
     const [newIngredient, setNewIngredient] = useState('');
-
+    const [editingIndex, setEditingIndex] = useState(null);
     function handleAddingInstruction() {
-        if (newInstruction) {
+        if (editingIndex !== null) {
+            const updatedInstructions = [...recipe.instructions];
+            updatedInstructions[editingIndex] = newInstruction;
+            setRecipe((prev) => ({
+                ...prev,
+                instructions: updatedInstructions,
+            }));
+            setEditingIndex(null);
+        } else if (newInstruction) {
             setRecipe((prev) => ({
                 ...prev,
                 instructions: [...prev.instructions, newInstruction],
             }));
-            setNewInstruction('');
         }
+        setNewInstruction('');
     }
 
     function handleAddingIngredient() {
-        setRecipe((prev) => ({
-            ...prev,
-            ingredients: [...prev.ingredients, newIngredient],
-        }));
+        if (editingIndex !== null) {
+            const updatedIngredients = [...recipe.ingredients];
+            updatedIngredients[editingIndex] = newIngredient;
+            setRecipe((prev) => ({
+                ...prev,
+                ingredients: updatedIngredients,
+            }));
+            setEditingIndex(null);
+        } else if (newIngredient) {
+            setRecipe((prev) => ({
+                ...prev,
+                ingredients: [...prev.ingredients, newIngredient],
+            }));
+        }
         setNewIngredient('');
     }
 
@@ -46,6 +64,16 @@ function NewRecipe() {
             (_, id) => id !== index
         );
         setRecipe((prev) => ({ ...prev, instructions: updatedInstructions }));
+    }
+
+    function handleEditInstruction(index) {
+        setEditingIndex(index);
+        setNewInstruction(recipe.instructions[index]);
+    }
+
+    function handleEditIngredient(index) {
+        setEditingIndex(index);
+        setNewIngredient(recipe.ingredients[index]);
     }
 
     return (
@@ -115,7 +143,14 @@ function NewRecipe() {
                             {recipe.instructions.map((instruction, index) => (
                                 <li key={index}>
                                     {instruction}
-                                    <img src={Edit} alt="" className="icon" />
+                                    <img
+                                        src={Edit}
+                                        alt=""
+                                        className="icon"
+                                        onClick={() =>
+                                            handleEditInstruction(index)
+                                        }
+                                    />
                                     <img
                                         src={TrashCan}
                                         alt=""
@@ -153,7 +188,14 @@ function NewRecipe() {
                             {recipe.ingredients.map((ingredient, index) => (
                                 <li key={index}>
                                     {ingredient}
-                                    <img src={Edit} alt="" className="icon" />
+                                    <img
+                                        src={Edit}
+                                        alt=""
+                                        className="icon"
+                                        onClick={() =>
+                                            handleEditIngredient(index)
+                                        }
+                                    />
                                     <img
                                         src={TrashCan}
                                         alt=""
