@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import Add from '../../assets/add_plus.png';
+import Edit from '../../assets/edit_modify_icon.png';
+import TrashCan from '../../assets/trash_can_icon.png';
 
 function NewRecipe() {
     const [recipe, setRecipe] = useState({
@@ -11,11 +14,13 @@ function NewRecipe() {
     const [newIngredient, setNewIngredient] = useState('');
 
     function handleAddingInstruction() {
-        setRecipe((prev) => ({
-            ...prev,
-            instructions: [...prev.instructions, newInstruction],
-        }));
-        setNewInstruction('');
+        if (newInstruction) {
+            setRecipe((prev) => ({
+                ...prev,
+                instructions: [...prev.instructions, newInstruction],
+            }));
+            setNewInstruction('');
+        }
     }
 
     function handleAddingIngredient() {
@@ -77,13 +82,28 @@ function NewRecipe() {
                             onChange={(e) => {
                                 setNewInstruction(e.target.value);
                             }}
+                            onKeyDown={(e) => {
+                                if (e.key === 'Enter') {
+                                    handleAddingInstruction();
+                                }
+                            }}
                         />
-                        <button onClick={handleAddingInstruction}>add</button>
+                        <button onClick={handleAddingInstruction}>
+                            <img src={Add} alt="" className="icon" />
+                        </button>
                     </div>
                     <div>
                         <ol>
                             {recipe.instructions.map((instruction, index) => (
-                                <li key={index}>{instruction}</li>
+                                <li key={index}>
+                                    {instruction}
+                                    <img src={Edit} alt="" className="icon" />
+                                    <img
+                                        src={TrashCan}
+                                        alt=""
+                                        className="icon"
+                                    />
+                                </li>
                             ))}
                         </ol>
                     </div>
@@ -97,13 +117,28 @@ function NewRecipe() {
                             onChange={(e) => {
                                 setNewIngredient(e.target.value);
                             }}
+                            onKeyDown={(e) => {
+                                if (e.key === 'Enter') {
+                                    handleAddingIngredient();
+                                }
+                            }}
                         />
-                        <button onClick={handleAddingIngredient}>add</button>
+                        <button onClick={handleAddingIngredient}>
+                            <img src={Add} alt="" className="icon" />
+                        </button>
                     </div>
                     <div>
                         <ol>
                             {recipe.ingredients.map((ingredient, index) => (
-                                <li key={index}>{ingredient}</li>
+                                <li key={index}>
+                                    {ingredient}
+                                    <img src={Edit} alt="" className="icon" />
+                                    <img
+                                        src={TrashCan}
+                                        alt=""
+                                        className="icon"
+                                    />
+                                </li>
                             ))}
                         </ol>
                     </div>
