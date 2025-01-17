@@ -7,8 +7,8 @@ function RecipeContextProvider({ children }) {
     const [recipe, setRecipe] = useState({
         name: '',
         description: '',
-        instructions: [],
         ingredients: [],
+        instructions: [],
     });
 
     function addRecipeToRecipesList(recipe) {

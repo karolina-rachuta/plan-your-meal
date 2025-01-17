@@ -3,7 +3,7 @@ import Add from '../../assets/add_plus.png';
 import Edit from '../../assets/edit_modify_icon.png';
 import TrashCan from '../../assets/trash_can_icon.png';
 import { RecipeContext } from '../../contex/RecipeContext';
-import { savingToLocalStorage } from '../../helpers/manageLocalStorage';
+import { saveRecipeToLocalStorage } from '../../helpers/manageLocalStorage';
 
 function NewRecipe({ handleScreenChange }) {
     const { addRecipeToRecipesList, recipesList, recipe, setRecipe } =
@@ -22,7 +22,7 @@ function NewRecipe({ handleScreenChange }) {
                 instructions: [],
                 ingredients: [],
             });
-            savingToLocalStorage(recipe.name, recipe);
+            saveRecipeToLocalStorage(recipe);
             handleScreenChange(1);
         } else {
             alert('Please provide a recipe name and description.');
