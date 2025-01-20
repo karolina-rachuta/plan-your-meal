@@ -93,37 +93,34 @@ function NewRecipe({ handleScreenChange }) {
     }
 
     return (
-        <div className="maindesktop__container recipe__container">
-            <div className="recipe__title">
+        <div className="maindesktop__container add__container">
+            <div className="add__title">
                 <h1>Add Recipe</h1>
                 <button onClick={handleSavingRecipe}>Save and Close</button>
             </div>
-            <div className="recipe__top">
-                <div className="recipe__row">
-                    <label htmlFor="recipe_name" className="recipe__label">
+            <div className="add__top">
+                <div className="add__row">
+                    <label htmlFor="recipe_name" className="add__label">
                         Recipe name
                     </label>
                     <input
                         type="text"
                         id="recipe_name"
-                        className="recipe__input"
+                        className="add__input"
                         value={recipe.name}
                         onChange={(e) =>
                             setRecipe({ ...recipe, name: e.target.value })
                         }
                     />
                 </div>
-                <div className="recipe__row">
-                    <label
-                        htmlFor="recipe_description"
-                        className="recipe__label"
-                    >
+                <div className="add__row">
+                    <label htmlFor="recipe_description" className="add__label">
                         Recipe description
                     </label>
                     <input
                         type="text"
                         id="recipe_description"
-                        className="recipe__input"
+                        className="add__input"
                         value={recipe.description}
                         onChange={(e) =>
                             setRecipe({
@@ -134,8 +131,8 @@ function NewRecipe({ handleScreenChange }) {
                     />
                 </div>
             </div>
-            <div className="recipe__bottom">
-                <div className="recipe__col">
+            <div className="add__bottom">
+                <div className="add__col">
                     <h2>Instructions</h2>
                     <div>
                         <input
@@ -180,7 +177,7 @@ function NewRecipe({ handleScreenChange }) {
                         </ol>
                     </div>
                 </div>
-                <div className="recipe__col">
+                <div className="add__col">
                     <h2>Ingredients</h2>
                     <div>
                         <input
