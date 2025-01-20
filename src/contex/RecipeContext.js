@@ -1,4 +1,5 @@
-import React, { useState, createContext } from 'react';
+import React, { useState, createContext, useEffect } from 'react';
+import { recipesFromDataBase } from '../recipes';
 
 export const RecipeContext = createContext();
 
@@ -11,9 +12,15 @@ function RecipeContextProvider({ children }) {
         instructions: [],
     });
 
+    useEffect(() => {
+        setRecipesList((prev) => [...prev, ...recipesFromDataBase]);
+    }, []);
+
     function addRecipeToRecipesList(recipe) {
         setRecipesList((prev) => [...prev, recipe]);
     }
+
+    console.log(recipesList);
     return (
         <RecipeContext.Provider
             value={{

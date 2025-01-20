@@ -1,6 +1,35 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
+import { RecipeContext } from '../../contex/RecipeContext';
 
 function NewSchedule({ handleScreenChange }) {
+    const { recipesList } = useContext(RecipeContext);
+    const [meals, setMeals] = useState({
+        monday: { breakfast1: '', breakfast2: '', lunch: '', dinner: '' },
+        tuesday: { breakfast1: '', breakfast2: '', lunch: '', dinner: '' },
+        wednesday: {
+            breakfast1: '',
+            breakfast2: '',
+            lunch: '',
+            dinner: '',
+        },
+        thursday: { breakfast1: '', breakfast2: '', lunch: '', dinner: '' },
+        friday: { breakfast1: '', breakfast2: '', lunch: '', dinner: '' },
+        saturday: { breakfast1: '', breakfast2: '', lunch: '', dinner: '' },
+        sunday: { breakfast1: '', breakfast2: '', lunch: '', dinner: '' },
+    });
+
+    console.log(meals);
+
+    const handleMealChange = (day, mealType, value) => {
+        setMeals((prevMeals) => ({
+            ...prevMeals,
+            [day]: {
+                ...prevMeals[day],
+                [mealType]: value,
+            },
+        }));
+    };
+
     return (
         <div className="maindesktop__container add__container">
             <div className="add__title">
@@ -56,222 +85,34 @@ function NewSchedule({ handleScreenChange }) {
                     <h4>Lunch</h4>
                     <h4>Dinner</h4>
                 </div>
-                <div className="add__row">
-                    <h4>Monday</h4>
-                    <select name="" id="">
-                        <option value="">1</option>
-                        <option value="">1</option>
-                        <option value="">1</option>
-                        <option value="">1</option>
-                        <option value="">1</option>
-                    </select>
-                    <select name="" id="">
-                        <option value="">1</option>
-                        <option value="">1</option>
-                        <option value="">1</option>
-                        <option value="">1</option>
-                        <option value="">1</option>
-                    </select>
-                    <select name="" id="">
-                        <option value="">1</option>
-                        <option value="">1</option>
-                        <option value="">1</option>
-                        <option value="">1</option>
-                        <option value="">1</option>
-                    </select>
-                    <select name="" id="">
-                        <option value="">1</option>
-                        <option value="">1</option>
-                        <option value="">1</option>
-                        <option value="">1</option>
-                        <option value="">1</option>
-                    </select>
-                </div>
-                <div className="add__row">
-                    <h4>Tuesday</h4>
-                    <select name="" id="">
-                        <option value="">1</option>
-                        <option value="">1</option>
-                        <option value="">1</option>
-                        <option value="">1</option>
-                        <option value="">1</option>
-                    </select>
-                    <select name="" id="">
-                        <option value="">1</option>
-                        <option value="">1</option>
-                        <option value="">1</option>
-                        <option value="">1</option>
-                        <option value="">1</option>
-                    </select>
-                    <select name="" id="">
-                        <option value="">1</option>
-                        <option value="">1</option>
-                        <option value="">1</option>
-                        <option value="">1</option>
-                        <option value="">1</option>
-                    </select>
-                    <select name="" id="">
-                        <option value="">1</option>
-                        <option value="">1</option>
-                        <option value="">1</option>
-                        <option value="">1</option>
-                        <option value="">1</option>
-                    </select>
-                </div>
-                <div className="add__row">
-                    <h4>Wednesday</h4>
-                    <select name="" id="">
-                        <option value="">1</option>
-                        <option value="">1</option>
-                        <option value="">1</option>
-                        <option value="">1</option>
-                        <option value="">1</option>
-                    </select>
-                    <select name="" id="">
-                        <option value="">1</option>
-                        <option value="">1</option>
-                        <option value="">1</option>
-                        <option value="">1</option>
-                        <option value="">1</option>
-                    </select>
-                    <select name="" id="">
-                        <option value="">1</option>
-                        <option value="">1</option>
-                        <option value="">1</option>
-                        <option value="">1</option>
-                        <option value="">1</option>
-                    </select>
-                    <select name="" id="">
-                        <option value="">1</option>
-                        <option value="">1</option>
-                        <option value="">1</option>
-                        <option value="">1</option>
-                        <option value="">1</option>
-                    </select>
-                </div>
-                <div className="add__row">
-                    <h4>Thursday</h4>
-                    <select name="" id="">
-                        <option value="">1</option>
-                        <option value="">1</option>
-                        <option value="">1</option>
-                        <option value="">1</option>
-                        <option value="">1</option>
-                    </select>
-                    <select name="" id="">
-                        <option value="">1</option>
-                        <option value="">1</option>
-                        <option value="">1</option>
-                        <option value="">1</option>
-                        <option value="">1</option>
-                    </select>
-                    <select name="" id="">
-                        <option value="">1</option>
-                        <option value="">1</option>
-                        <option value="">1</option>
-                        <option value="">1</option>
-                        <option value="">1</option>
-                    </select>
-                    <select name="" id="">
-                        <option value="">1</option>
-                        <option value="">1</option>
-                        <option value="">1</option>
-                        <option value="">1</option>
-                        <option value="">1</option>
-                    </select>
-                </div>
-                <div className="add__row">
-                    <h4>Friday</h4>
-                    <select name="" id="">
-                        <option value="">1</option>
-                        <option value="">1</option>
-                        <option value="">1</option>
-                        <option value="">1</option>
-                        <option value="">1</option>
-                    </select>
-                    <select name="" id="">
-                        <option value="">1</option>
-                        <option value="">1</option>
-                        <option value="">1</option>
-                        <option value="">1</option>
-                        <option value="">1</option>
-                    </select>
-                    <select name="" id="">
-                        <option value="">1</option>
-                        <option value="">1</option>
-                        <option value="">1</option>
-                        <option value="">1</option>
-                        <option value="">1</option>
-                    </select>
-                    <select name="" id="">
-                        <option value="">1</option>
-                        <option value="">1</option>
-                        <option value="">1</option>
-                        <option value="">1</option>
-                        <option value="">1</option>
-                    </select>
-                </div>
-                <div className="add__row">
-                    <h4>Saturday</h4>
-                    <select name="" id="">
-                        <option value="">1</option>
-                        <option value="">1</option>
-                        <option value="">1</option>
-                        <option value="">1</option>
-                        <option value="">1</option>
-                    </select>
-                    <select name="" id="">
-                        <option value="">1</option>
-                        <option value="">1</option>
-                        <option value="">1</option>
-                        <option value="">1</option>
-                        <option value="">1</option>
-                    </select>
-                    <select name="" id="">
-                        <option value="">1</option>
-                        <option value="">1</option>
-                        <option value="">1</option>
-                        <option value="">1</option>
-                        <option value="">1</option>
-                    </select>
-                    <select name="" id="">
-                        <option value="">1</option>
-                        <option value="">1</option>
-                        <option value="">1</option>
-                        <option value="">1</option>
-                        <option value="">1</option>
-                    </select>
-                </div>
-                <div className="add__row">
-                    <h4>Sunday</h4>
-                    <select name="" id="">
-                        <option value="">1</option>
-                        <option value="">1</option>
-                        <option value="">1</option>
-                        <option value="">1</option>
-                        <option value="">1</option>
-                    </select>
-                    <select name="" id="">
-                        <option value="">1</option>
-                        <option value="">1</option>
-                        <option value="">1</option>
-                        <option value="">1</option>
-                        <option value="">1</option>
-                    </select>
-                    <select name="" id="">
-                        <option value="">1</option>
-                        <option value="">1</option>
-                        <option value="">1</option>
-                        <option value="">1</option>
-                        <option value="">1</option>
-                    </select>
-                    <select name="" id="">
-                        <option value="">1</option>
-                        <option value="">1</option>
-                        <option value="">1</option>
-                        <option value="">1</option>
-                        <option value="">1</option>
-                    </select>
+                <div className="add__botom add__bottom--col">
+                    {Object.keys(meals).map((day) => (
+                        <div className="add__row" key={day}>
+                            <h4>
+                                {day.charAt(0).toUpperCase() + day.slice(1)}
+                            </h4>
+                            {Object.keys(meals[day]).map((mealType) => (
+                                <select
+                                    key={mealType}
+                                    value={meals[day][mealType]}
+                                    onChange={(e) =>
+                                        handleMealChange(
+                                            day,
+                                            mealType,
+                                            e.target.value
+                                        )
+                                    }
+                                >
+                                    <option value="">Select a meal</option>
+                                    {recipesList?.map((meal, index) => (
+                                        <option key={index} value={meal.name}>
+                                            {meal.name}
+                                        </option>
+                                    ))}
+                                </select>
+                            ))}
+                        </div>
+                    ))}
                 </div>
             </div>
         </div>
