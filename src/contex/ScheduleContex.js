@@ -7,9 +7,14 @@ function ScheduleContexProvider({ children }) {
     const [schedule, setSchedule] = useState({});
     return (
         <ScheduleContext.Provider
-            value={{ scheduleList, setScheduleList, schedule, setSchedule }}
+            value={{
+                scheduleList,
+                setScheduleList,
+                schedule,
+                setSchedule,
+            }}
         >
-            {children}
+            {children}{' '}
         </ScheduleContext.Provider>
     );
 }

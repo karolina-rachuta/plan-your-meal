@@ -40,8 +40,6 @@
         gap: 20px;
         align-items: center;
         justify-content: space-evenly;
-
-        .add__col {}
     }
 
     .add__bottom--col {
@@ -51,9 +49,6 @@
         .add__row {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-            // text-align: center;
-            // display: flex;
-            // flex-direction: row;
             gap: 5px;
             width: 100%;
             margin-bottom: 5px;

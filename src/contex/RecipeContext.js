@@ -19,8 +19,6 @@ function RecipeContextProvider({ children }) {
     function addRecipeToRecipesList(recipe) {
         setRecipesList((prev) => [...prev, recipe]);
     }
-
-    console.log(recipesList);
     return (
         <RecipeContext.Provider
             value={{
