@@ -16,13 +16,13 @@ function NewRecipe({ handleScreenChange }) {
     function handleSavingRecipe() {
         if (recipe.name && recipe.description) {
             addRecipeToRecipesList(recipe);
+            saveRecipeToLocalStorage(recipe);
             setRecipe({
                 name: '',
                 description: '',
                 instructions: [],
                 ingredients: [],
             });
-            saveRecipeToLocalStorage(recipe);
             handleScreenChange(1);
         } else {
             alert('Please provide a recipe name and description.');

@@ -1,20 +1,8 @@
 import React, { useContext, useEffect } from 'react';
 import { ScheduleContext } from '../../contex/ScheduleContex';
-import { getScheduleFromLocalStorage } from '../../helpers/manageLocalStorage';
 
 function Schedules() {
-    const { scheduleList, setScheduleList, schedule, setSchedule } =
-        useContext(ScheduleContext);
-
-    useEffect(() => {
-        const schedulesFromLocalStorage = getScheduleFromLocalStorage();
-        setScheduleList((prev) => [...prev, ...schedulesFromLocalStorage]);
-    }, [setScheduleList]);
-
-    useEffect(() => {
-        const schedulesFromLocalStorage = getScheduleFromLocalStorage();
-        setScheduleList((prev) => [...prev, ...schedulesFromLocalStorage]);
-    }, [setScheduleList]);
+    const { scheduleList } = useContext(ScheduleContext);
 
     return (
         <div className="maindesktop__container add__container">
@@ -22,7 +10,7 @@ function Schedules() {
                 <div>
                     <h4>Name: {schedule.name}</h4>
                     <p>Description: {schedule.description}</p>
-                    <p>Week number :{schedule.number}</p>
+                    <p>Week number: {schedule.number}</p>
                     <div className="add__botom add__bottom--col">
                         {Object.keys(schedule.mealPlan).map((day) => (
                             <div className="add__row" key={day}>

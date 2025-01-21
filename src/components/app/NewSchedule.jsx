@@ -24,8 +24,13 @@ function NewSchedule({ handleScreenChange }) {
     const [planName, setPlanName] = useState('');
     const [planDescription, setPlanDescription] = useState('');
     const [planWeekNumber, setPlanWeekNumber] = useState('');
-    const { scheduleList, setScheduleList, schedule, setSchedule } =
-        useContext(ScheduleContext);
+    const {
+        scheduleList,
+        setScheduleList,
+        schedule,
+        setSchedule,
+        addScheduleToSchedulesList,
+    } = useContext(ScheduleContext);
 
     const handleMealChange = (day, mealType, value) => {
         setMeals((prevMeals) => ({
@@ -41,8 +46,8 @@ function NewSchedule({ handleScreenChange }) {
         if (
             planName &&
             planDescription &&
-            planWeekNumber &&
-            areAllMealsSelected()
+            planWeekNumber
+            // && areAllMealsSelected()
         ) {
             const newPlanMeal = {
                 name: planName,
@@ -50,17 +55,14 @@ function NewSchedule({ handleScreenChange }) {
                 number: planWeekNumber,
                 mealPlan: meals,
             };
-            let updatedSchedule;
-            setScheduleList((prev) => {
-                updatedSchedule = [...prev, newPlanMeal];
-                return updatedSchedule;
-            });
+            // setSchedule(newPlanMeal);
+            addScheduleToSchedulesList(newPlanMeal);
             saveScheduleToLocalStorage(newPlanMeal);
-            handleScreenChange(1);
             setMeals(INITIAL_MEAL);
             setPlanName('');
             setPlanDescription('');
             setPlanWeekNumber('');
+            handleScreenChange(1);
         } else {
             alert('Please fill in all fields and select meals for each day.');
         }

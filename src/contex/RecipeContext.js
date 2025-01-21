@@ -1,5 +1,6 @@
 import React, { useState, createContext, useEffect } from 'react';
 import { recipesFromDataBase } from '../recipes';
+import { getRecipesFromLocalStorage } from '../helpers/manageLocalStorage';
 
 export const RecipeContext = createContext();
 
@@ -12,17 +13,15 @@ function RecipeContextProvider({ children }) {
         instructions: [],
     });
 
+    const recipesFromLocalStorage = getRecipesFromLocalStorage();
+
     useEffect(() => {
-        setRecipesList((prev) => [...prev, ...recipesFromDataBase]);
+        setRecipesList([...recipesFromDataBase, ...recipesFromLocalStorage]);
     }, []);
 
-    function addRecipeToRecipesList(recipe) {
-        setRecipesList((prev) => [...prev, recipe]);
-    }
     return (
         <RecipeContext.Provider
             value={{
-                addRecipeToRecipesList,
                 recipesList,
                 setRecipesList,
                 recipe,

@@ -9,7 +9,7 @@ export const saveRecipeToLocalStorage = (recipe) => {
 };
 
 export const saveScheduleToLocalStorage = (schedule) => {
-    const schedules = JSON.parse(localStorage.getItem('schedule')) || [];
+    const schedules = JSON.parse(localStorage.getItem('schedules')) || [];
     schedules.push(schedule);
     localStorage.setItem('schedules', JSON.stringify(schedules));
 };
