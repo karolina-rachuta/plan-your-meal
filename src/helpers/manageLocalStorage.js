@@ -8,6 +8,15 @@ export const saveRecipeToLocalStorage = (recipe) => {
     localStorage.setItem('recipes', JSON.stringify(recipes));
 };
 
+export const saveScheduleToLocalStorage = (schedule) => {
+    const schedules = JSON.parse(localStorage.getItem('schedule')) || [];
+    schedules.push(schedule);
+    localStorage.setItem('schedules', JSON.stringify(schedules));
+};
+
+export const getScheduleFromLocalStorage = () => {
+    return JSON.parse(localStorage.getItem('schedules')) || [];
+}
 export const getRecipesFromLocalStorage = () => {
     return JSON.parse(localStorage.getItem('recipes')) || [];
 }

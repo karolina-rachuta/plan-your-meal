@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { RecipeContext } from '../../contex/RecipeContext';
 import { ScheduleContext } from '../../contex/ScheduleContex';
+import { saveScheduleToLocalStorage } from '../../helpers/manageLocalStorage';
 
 const INITIAL_MEAL = {
     monday: { breakfast1: '', breakfast2: '', lunch: '', dinner: '' },
@@ -37,27 +38,38 @@ function NewSchedule({ handleScreenChange }) {
     };
 
     function handleSaveMealPlan() {
-        if (planName && planDescription && planWeekNumber) {
+        if (
+            planName &&
+            planDescription &&
+            planWeekNumber &&
+            areAllMealsSelected()
+        ) {
             const newPlanMeal = {
                 name: planName,
                 description: planDescription,
                 number: planWeekNumber,
                 mealPlan: meals,
             };
+            let updatedSchedule;
             setScheduleList((prev) => {
-                const updatedSchedule = [...prev, newPlanMeal];
+                updatedSchedule = [...prev, newPlanMeal];
                 return updatedSchedule;
             });
+            saveScheduleToLocalStorage(newPlanMeal);
             handleScreenChange(1);
             setMeals(INITIAL_MEAL);
             setPlanName('');
             setPlanDescription('');
             setPlanWeekNumber('');
         } else {
-            alert('Write name, description and week number');
+            alert('Please fill in all fields and select meals for each day.');
         }
     }
-    console.log(scheduleList);
+    const areAllMealsSelected = () => {
+        return Object.values(meals).every((day) =>
+            Object.values(day).every((meal) => meal !== '')
+        );
+    };
     return (
         <div className="maindesktop__container add__container">
             <div className="add__title">
