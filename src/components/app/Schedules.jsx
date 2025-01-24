@@ -1,30 +1,34 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { ScheduleContext } from '../../contex/ScheduleContex';
+import Edit from '../../assets/edit_modify_icon.png';
+import TrashCan from '../../assets/trash_can_icon.png';
 
 function Schedules() {
     const { scheduleList } = useContext(ScheduleContext);
 
     return (
-        <div className="maindesktop__container add__container">
-            {scheduleList.map((schedule) => (
-                <div>
-                    <h4>Name: {schedule.name}</h4>
-                    <p>Description: {schedule.description}</p>
-                    <p>Week number: {schedule.number}</p>
-                    <div className="add__botom add__bottom--col">
-                        {Object.keys(schedule.mealPlan).map((day) => (
-                            <div className="add__row" key={day}>
-                                <h4>{day}</h4>
-                                {Object.entries(schedule.mealPlan[day]).map(
-                                    ([key, value]) => (
-                                        <p key={`${day}-${key}`}>{value}</p>
-                                    )
-                                )}
-                            </div>
-                        ))}
+        <div className="maindesktop__container table__container">
+            <div className="row">
+                <p>ID</p>
+                <p>NAME</p>
+                <p>DESCRIPTION</p>
+                <p>WEEK</p>
+                <p>ACTION</p>
+            </div>
+            {scheduleList
+                .sort((a, b) => Number(a.number) - Number(b.number))
+                .map((schedule, index) => (
+                    <div className="row">
+                        <p>{index + 1}</p>
+                        <p>{schedule.name}</p>
+                        <p>{schedule.description}</p>
+                        <p>{schedule.number}</p>
+                        <p>
+                            <img src={Edit} alt="" className="icon" />
+                            <img src={TrashCan} alt="" className="icon" />
+                        </p>
                     </div>
-                </div>
-            ))}
+                ))}
         </div>
     );
 }
