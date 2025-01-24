@@ -1,6 +1,7 @@
 .sidebar__container {
     background-color: $third-color;
     width: 30%;
+    max-width: 250px;
     height: 100vh;
     color: $bg-color;
     display: flex;

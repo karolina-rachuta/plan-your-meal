@@ -7,8 +7,7 @@ import { ScheduleContext } from '../../contex/ScheduleContex';
 import { RecipeContext } from '../../contex/RecipeContext';
 
 function MainDesktop({ handleScreenChange }) {
-    const { addRecipeToRecipesList, recipesList, recipe, setRecipe } =
-        useContext(RecipeContext);
+    const { recipesList } = useContext(RecipeContext);
     const { scheduleList } = useContext(ScheduleContext);
     const [planIndex, setPlanIndex] = useState(1);
     const selectedPlan = scheduleList.find(
@@ -76,11 +75,11 @@ function MainDesktop({ handleScreenChange }) {
             </div>
             <div className="maindesktop__container add__container">
                 {selectedPlan && (
-                    <div>
+                    <>
                         <h4>Your Meal Plan for : {selectedPlan.number} week</h4>
-                        <div className="add__botom add__bottom--col">
+                        <div className="add__botom" style={{ display: 'flex' }}>
                             {Object.keys(selectedPlan.mealPlan).map((day) => (
-                                <div className="add__row" key={day}>
+                                <div key={day}>
                                     <h4>{day}</h4>
                                     {Object.entries(
                                         selectedPlan.mealPlan[day]
@@ -94,7 +93,7 @@ function MainDesktop({ handleScreenChange }) {
                             <button onClick={handlePrev}>Prev</button>
                             <button onClick={handleNext}>Next</button>
                         </div>
-                    </div>
+                    </>
                 )}
             </div>
         </div>

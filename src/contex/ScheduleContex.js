@@ -1,5 +1,6 @@
 import React, { createContext, useEffect, useState } from 'react';
 import { getScheduleFromLocalStorage } from '../helpers/manageLocalStorage';
+import { schedulesFromDataBase } from '../schedules';
 export const ScheduleContext = createContext();
 
 function ScheduleContexProvider({ children }) {
@@ -9,7 +10,10 @@ function ScheduleContexProvider({ children }) {
     const scheduleFromLocalStorage = getScheduleFromLocalStorage();
 
     useEffect(() => {
-        setScheduleList([...scheduleFromLocalStorage]);
+        setScheduleList([
+            ...scheduleFromLocalStorage,
+            ...schedulesFromDataBase,
+        ]);
     }, []);
 
     function addScheduleToSchedulesList(schedule) {

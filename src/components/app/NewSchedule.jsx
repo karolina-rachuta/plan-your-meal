@@ -43,19 +43,13 @@ function NewSchedule({ handleScreenChange }) {
     };
 
     function handleSaveMealPlan() {
-        if (
-            planName &&
-            planDescription &&
-            planWeekNumber
-            // && areAllMealsSelected()
-        ) {
+        if (planName && planDescription && planWeekNumber) {
             const newPlanMeal = {
                 name: planName,
                 description: planDescription,
                 number: planWeekNumber,
                 mealPlan: meals,
             };
-            // setSchedule(newPlanMeal);
             addScheduleToSchedulesList(newPlanMeal);
             saveScheduleToLocalStorage(newPlanMeal);
             setMeals(INITIAL_MEAL);
@@ -72,6 +66,21 @@ function NewSchedule({ handleScreenChange }) {
             Object.values(day).every((meal) => meal !== '')
         );
     };
+
+    function handlePlanNumber(e) {
+        const inputWeekNumber = Number(e.target.value);
+        if (
+            scheduleList.find(
+                (schedule) => Number(schedule.number) === inputWeekNumber
+            )
+        ) {
+            alert(
+                `week number ${inputWeekNumber} already exists, please choose different`
+            );
+        } else {
+            setPlanWeekNumber(e.target.value);
+        }
+    }
     return (
         <div className="maindesktop__container add__container">
             <div className="add__title">
@@ -120,7 +129,7 @@ function NewSchedule({ handleScreenChange }) {
                         id="schedule_week_number"
                         className="add__input"
                         value={planWeekNumber}
-                        onChange={(e) => setPlanWeekNumber(e.target.value)}
+                        onChange={handlePlanNumber}
                     />
                 </div>
             </div>

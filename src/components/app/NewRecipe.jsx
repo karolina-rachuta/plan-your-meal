@@ -6,7 +6,7 @@ import { RecipeContext } from '../../contex/RecipeContext';
 import { saveRecipeToLocalStorage } from '../../helpers/manageLocalStorage';
 
 function NewRecipe({ handleScreenChange }) {
-    const { addRecipeToRecipesList, recipesList, recipe, setRecipe } =
+    const { addRecipeToRecipesList, recipe, setRecipe } =
         useContext(RecipeContext);
 
     const [newInstruction, setNewInstruction] = useState('');

@@ -40,7 +40,6 @@
         gap: 20px;
         align-items: center;
         justify-content: space-evenly;
-        // flex-wrap: wrap;
     }
 
     .add__bottom--col {
@@ -61,5 +60,11 @@
             }
 
         }
+    }
+
+    .maindesktop-navigation {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
     }
 }
