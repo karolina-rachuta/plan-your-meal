@@ -15,6 +15,19 @@ function MainDesktop({ handleScreenChange }) {
         (schedule) => Number(schedule.number) === planIndex
     );
     const totalRecipes = recipesList.length;
+    const totalSchedules = scheduleList.length;
+
+    function handlePrev() {
+        if (planIndex > 1) {
+            setPlanIndex((prev) => prev - 1);
+        }
+    }
+
+    function handleNext() {
+        if (planIndex < totalSchedules) {
+            setPlanIndex((prev) => prev + 1);
+        }
+    }
     return (
         <div className="maindesktop__container">
             <div className="maindesktop__top">
@@ -64,9 +77,7 @@ function MainDesktop({ handleScreenChange }) {
             <div className="maindesktop__container add__container">
                 {selectedPlan && (
                     <div>
-                        <h4>Name: {selectedPlan.name}</h4>
-                        <p>Description: {selectedPlan.description}</p>
-                        <p>Week number: {selectedPlan.number}</p>
+                        <h4>Your Meal Plan for : {selectedPlan.number} week</h4>
                         <div className="add__botom add__bottom--col">
                             {Object.keys(selectedPlan.mealPlan).map((day) => (
                                 <div className="add__row" key={day}>
@@ -78,6 +89,10 @@ function MainDesktop({ handleScreenChange }) {
                                     ))}
                                 </div>
                             ))}
+                        </div>
+                        <div className="maindesktop-navigation">
+                            <button onClick={handlePrev}>Prev</button>
+                            <button onClick={handleNext}>Next</button>
                         </div>
                     </div>
                 )}
