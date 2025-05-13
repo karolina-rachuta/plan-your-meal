@@ -77,9 +77,20 @@ function MainDesktop({ handleScreenChange }) {
                 {selectedPlan && (
                     <>
                         <h4>Your Meal Plan for : {selectedPlan.number} week</h4>
-                        <div className="add__botom" style={{ display: 'flex' }}>
+                        <div
+                            className="add__botom"
+                            style={{
+                                display: 'flex',
+                                borderBotom: '1px solid black',
+                            }}
+                        >
                             {Object.keys(selectedPlan.mealPlan).map((day) => (
-                                <div key={day}>
+                                <div
+                                    key={day}
+                                    style={{
+                                        borderRight: '1px solid black',
+                                    }}
+                                >
                                     <h4>{day}</h4>
                                     {Object.entries(
                                         selectedPlan.mealPlan[day]

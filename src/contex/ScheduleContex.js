@@ -1,9 +1,19 @@
-import React, { createContext, useEffect, useState } from 'react';
-import { getScheduleFromLocalStorage } from '../helpers/manageLocalStorage';
-import { schedulesFromDataBase } from '../schedules';
+import React, {
+    createContext,
+    useEffect,
+    useState
+} from 'react';
+import {
+    getScheduleFromLocalStorage
+} from '../helpers/manageLocalStorage';
+import {
+    schedulesFromDataBase
+} from '../schedules';
 export const ScheduleContext = createContext();
 
-function ScheduleContexProvider({ children }) {
+function ScheduleContexProvider({
+    children
+}) {
     const [scheduleList, setScheduleList] = useState([]);
     const [schedule, setSchedule] = useState({});
 
@@ -19,18 +29,23 @@ function ScheduleContexProvider({ children }) {
     function addScheduleToSchedulesList(schedule) {
         setScheduleList((prev) => [...prev, schedule]);
     }
-    return (
-        <ScheduleContext.Provider
-            value={{
+    return ( <
+        ScheduleContext.Provider value = {
+            {
+                scheduleFromLocalStorage,
                 addScheduleToSchedulesList,
                 scheduleList,
                 setScheduleList,
                 schedule,
                 setSchedule,
-            }}
-        >
-            {children}{' '}
-        </ScheduleContext.Provider>
+            }
+        } >
+        {
+            children
+        } {
+            ' '
+        } <
+        /ScheduleContext.Provider>
     );
 }
 

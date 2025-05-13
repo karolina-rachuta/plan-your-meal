@@ -15,7 +15,7 @@ function NewRecipe({ handleScreenChange }) {
 
     function handleSavingRecipe() {
         if (recipe.name && recipe.description) {
-            addRecipeToRecipesList(recipe);
+            //addRecipeToRecipesList(recipe);
             saveRecipeToLocalStorage(recipe);
             setRecipe({
                 name: '',
