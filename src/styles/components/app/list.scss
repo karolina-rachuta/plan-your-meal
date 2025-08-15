@@ -7,11 +7,17 @@
         h1 {
             text-align: center;
         }
-    }
 
-    .row:first-of-type {
-        @media (max-width: 580px) {
+        .row:first-of-type {
             display: none;
+        }
+
+        .row p:first-of-type {
+            display: none;
+        }
+
+        .row p:nth-of-type(2) {
+            font-weight: bold;
         }
     }
 
@@ -32,7 +38,6 @@
             flex-direction: column;
         }
 
-
         .action__btn {
             display: flex;
             flex-direction: column;
@@ -41,7 +46,6 @@
             align-items: start;
 
             @media screen and (max-width: 580px) {
-
                 flex-direction: row;
             }
         }
