@@ -101,8 +101,12 @@ function MainDesktop({ handleScreenChange }) {
                             ))}
                         </div>
                         <div className="maindesktop-navigation">
-                            <button onClick={handlePrev}>Prev</button>
-                            <button onClick={handleNext}>Next</button>
+                            <button onClick={handlePrev} className="btn">
+                                Prev
+                            </button>
+                            <button onClick={handleNext} className="btn">
+                                Next
+                            </button>
                         </div>
                     </>
                 )}

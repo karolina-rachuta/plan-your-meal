@@ -85,7 +85,9 @@ function NewSchedule({ handleScreenChange }) {
         <div className="maindesktop__container add__container">
             <div className="add__title">
                 <h1>New meal plan</h1>
-                <button onClick={handleSaveMealPlan}>Save and close</button>
+                <button onClick={handleSaveMealPlan} className="btn">
+                    Save and close
+                </button>
             </div>
             <div className="add__top">
                 <div className="add__row">

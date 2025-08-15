@@ -38,9 +38,41 @@
         display: flex;
         width: 100%;
         gap: 20px;
-        align-items: center;
+        align-items: start;
         justify-content: space-evenly;
+        height: 100vh;
+
+        .add__col {
+            width: 40%;
+
+            .input__row {
+                display: flex;
+                align-items: center;
+                gap: 2px;
+                width: 100%;
+                margin-top: 10px;
+
+                input {
+                    width: 100%;
+                }
+            }
+
+            ol {
+                width: 100%;
+                text-align: justify;
+                list-style-position: inside;
+
+                li {
+                    margin-top: 5px;
+                }
+            }
+
+        }
+
+
     }
+
+
 
     .add__bottom--col {
         display: flex;
@@ -60,7 +92,9 @@
                 width: 100%;
             }
 
+
         }
+
     }
 
     .maindesktop-navigation {
