@@ -26,7 +26,7 @@ function Schedules() {
     return (
         <div className="maindesktop__container table__container">
             <h1>List of meal plans</h1>
-            <div className="row">
+            <div className="row row--schedule">
                 <p>ID</p>
                 <p>NAME</p>
                 <p>DESCRIPTION</p>
@@ -37,12 +37,12 @@ function Schedules() {
                 .sort((a, b) => Number(a.number) - Number(b.number))
                 .map((schedule, id) => {
                     return (
-                        <div className="row" key={id}>
+                        <div className="row row--schedule" key={id}>
                             <p>{id + 1}</p>
                             <p>{schedule.name}</p>
                             <p>{schedule.description}</p>
-                            <p>{schedule.number}</p>
-                            <p>
+                            <p>{schedule.number} week</p>
+                            <div className="action__btn">
                                 <img src={Edit} alt="" className="icon" />
                                 <img
                                     src={TrashCan}
@@ -50,7 +50,7 @@ function Schedules() {
                                     className="icon"
                                     onClick={() => handleDelete(id)}
                                 />
-                            </p>
+                            </div>
                         </div>
                     );
                 })}

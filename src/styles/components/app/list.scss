@@ -50,4 +50,8 @@
             }
         }
     }
+
+    .row--schedule {
+        grid-template-columns: 0.25fr 1.25fr 2fr 0.5fr 0.5fr;
+    }
 }
