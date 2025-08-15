@@ -76,26 +76,22 @@ function MainDesktop({ handleScreenChange }) {
             <div className="maindesktop__container add__container">
                 {selectedPlan && (
                     <>
-                        <h4>Your Meal Plan for : {selectedPlan.number} week</h4>
-                        <div
-                            className="add__botom"
-                            style={{
-                                display: 'flex',
-                                borderBotom: '1px solid black',
-                            }}
-                        >
+                        <h4 className="mealPlan__title">
+                            Your Meal Plan for : {selectedPlan.number} week
+                        </h4>
+                        <div className="add__botom">
                             {Object.keys(selectedPlan.mealPlan).map((day) => (
-                                <div
-                                    key={day}
-                                    style={{
-                                        borderRight: '1px solid black',
-                                    }}
-                                >
-                                    <h4>{day}</h4>
+                                <div className="mealplan__table" key={day}>
+                                    <h4 className="mealPlan__header">{day}</h4>
                                     {Object.entries(
                                         selectedPlan.mealPlan[day]
                                     ).map(([key, value]) => (
-                                        <p key={`${day}-${key}`}>{value}</p>
+                                        <p
+                                            className="mealPlan__row"
+                                            key={`${day}-${key}`}
+                                        >
+                                            {value}
+                                        </p>
                                     ))}
                                 </div>
                             ))}

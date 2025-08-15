@@ -4,18 +4,18 @@ import { ScheduleContext } from '../../contex/ScheduleContex';
 import { saveScheduleToLocalStorage } from '../../helpers/manageLocalStorage';
 
 const INITIAL_MEAL = {
-    monday: { breakfast1: '', breakfast2: '', lunch: '', dinner: '' },
-    tuesday: { breakfast1: '', breakfast2: '', lunch: '', dinner: '' },
-    wednesday: {
+    Monday: { breakfast1: '', breakfast2: '', lunch: '', dinner: '' },
+    Tuesday: { breakfast1: '', breakfast2: '', lunch: '', dinner: '' },
+    Wednesday: {
         breakfast1: '',
         breakfast2: '',
         lunch: '',
         dinner: '',
     },
-    thursday: { breakfast1: '', breakfast2: '', lunch: '', dinner: '' },
-    friday: { breakfast1: '', breakfast2: '', lunch: '', dinner: '' },
-    saturday: { breakfast1: '', breakfast2: '', lunch: '', dinner: '' },
-    sunday: { breakfast1: '', breakfast2: '', lunch: '', dinner: '' },
+    Thursday: { breakfast1: '', breakfast2: '', lunch: '', dinner: '' },
+    Friday: { breakfast1: '', breakfast2: '', lunch: '', dinner: '' },
+    Saturday: { breakfast1: '', breakfast2: '', lunch: '', dinner: '' },
+    Sunday: { breakfast1: '', breakfast2: '', lunch: '', dinner: '' },
 };
 
 function NewSchedule({ handleScreenChange }) {
@@ -138,7 +138,7 @@ function NewSchedule({ handleScreenChange }) {
 
             <div className="add__botom add__bottom--col">
                 <div className="add__row">
-                    <p> </p>
+                    <h4> </h4>
                     <h4>Breakfast I</h4>
                     <h4>Breakfast II</h4>
                     <h4>Lunch</h4>
@@ -147,9 +147,7 @@ function NewSchedule({ handleScreenChange }) {
                 <div className="add__botom add__bottom--col">
                     {Object.keys(meals).map((day) => (
                         <div className="add__row" key={day}>
-                            <h4>
-                                {day.charAt(0).toUpperCase() + day.slice(1)}
-                            </h4>
+                            <h4>{day}</h4>
                             {Object.keys(meals[day]).map((mealType) => (
                                 <select
                                     key={mealType}
