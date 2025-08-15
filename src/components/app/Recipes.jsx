@@ -25,7 +25,7 @@ function Recipes() {
                 <p>ACTION</p>
             </div>
             {recipesList.map((recipe, index) => (
-                <div className="row">
+                <div className="row" key={index}>
                     <p>{index + 1}</p>
                     <p>{recipe.name}</p>
                     <ul>
@@ -42,10 +42,10 @@ function Recipes() {
                             </li>
                         ))}
                     </ul>
-                    <p>
+                    <div className="action__btn">
                         <img src={Edit} alt="" className="icon" />
                         <img src={TrashCan} alt="" className="icon" />
-                    </p>
+                    </div>
                 </div>
             ))}
         </div>

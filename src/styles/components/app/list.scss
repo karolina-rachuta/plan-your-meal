@@ -3,11 +3,47 @@
     flex-direction: column;
     width: 100%;
 
+    @media screen and (max-width: 580px) {
+        h1 {
+            text-align: center;
+        }
+    }
+
+    .row:first-of-type {
+        @media (max-width: 580px) {
+            display: none;
+        }
+    }
+
     .row {
         gap: 20px;
         width: 100%;
         display: grid;
         grid-template-columns: 0.25fr 1.25fr 1.5fr 1.5fr 0.5fr;
         border-bottom: 1px solid black;
+        padding-bottom: 20px;
+
+        li {
+            list-style-position: inside;
+        }
+
+        @media screen and (max-width: 580px) {
+            display: flex;
+            flex-direction: column;
+        }
+
+
+        .action__btn {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            justify-content: center;
+            align-items: start;
+
+            @media screen and (max-width: 580px) {
+
+                flex-direction: row;
+            }
+        }
     }
 }
