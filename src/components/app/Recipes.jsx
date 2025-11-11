@@ -1,19 +1,24 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { RecipeContext } from '../../contex/RecipeContext';
-import { getRecipesFromLocalStorage } from '../../helpers/manageLocalStorage';
-import { recipesFromDataBase } from '../../recipes';
 import Edit from '../../assets/edit_modify_icon.png';
 import TrashCan from '../../assets/trash_can_icon.png';
-function Recipes() {
-    const [recipesListLocalStorage, setRecipesListLocalStorage] = useState([]);
-    const { recipesList } = useContext(RecipeContext);
+import { deleteRecipeFromLocalStorage } from '../../helpers/manageLocalStorage.js';
+function Recipes({ handleScreenChange }) {
+    const { recipesList, setRecipesList, setEditedRecipe } =
+        useContext(RecipeContext);
 
-    // useEffect(() => {
-    //     const recipes = getRecipesFromLocalStorage();
-    //     setRecipesListLocalStorage(recipes);
-    // }, []);
+    function handleEditRecipe(id) {
+        const findRecipe = recipesList.find((recipe) => recipe.id === id);
+        setEditedRecipe({ ...findRecipe });
+        handleScreenChange(6);
+    }
 
-    const totalRecipesFromDatabase = recipesFromDataBase.length;
+    function handleDeleteRecipe(id) {
+        const updatedRecipes = recipesList.filter((r) => r.id !== id);
+        deleteRecipeFromLocalStorage(id);
+        setRecipesList(updatedRecipes);
+    }
+
     return (
         <div className="maindesktop__container table__container">
             <h1>List of recipes</h1>
@@ -43,8 +48,18 @@ function Recipes() {
                         ))}
                     </ul>
                     <div className="action__btn">
-                        <img src={Edit} alt="" className="icon" />
-                        <img src={TrashCan} alt="" className="icon" />
+                        <img
+                            src={Edit}
+                            alt="Pencil"
+                            className="icon"
+                            onClick={() => handleEditRecipe(recipe.id)}
+                        />
+                        <img
+                            src={TrashCan}
+                            alt="Trash can"
+                            className="icon"
+                            onClick={() => handleDeleteRecipe(recipe.id)}
+                        />
                     </div>
                 </div>
             ))}

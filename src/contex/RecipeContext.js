@@ -7,17 +7,23 @@ export const RecipeContext = createContext();
 function RecipeContextProvider({ children }) {
     const [recipesList, setRecipesList] = useState([]);
     const [recipe, setRecipe] = useState({
+        id: '',
         name: '',
         description: '',
         ingredients: [],
         instructions: [],
     });
-
-    const recipesFromLocalStorage = getRecipesFromLocalStorage();
+    const [editedRecipe, setEditedRecipe] = useState(null);
 
     useEffect(() => {
-        setRecipesList([...recipesFromDataBase, ...recipesFromLocalStorage]);
+        const recipesFromLocalStorage = getRecipesFromLocalStorage();
+        const combinedRecipes = [
+            ...recipesFromDataBase,
+            ...recipesFromLocalStorage,
+        ];
+        setRecipesList(combinedRecipes);
     }, []);
+    console.log(recipesList);
 
     return (
         <RecipeContext.Provider
@@ -26,6 +32,8 @@ function RecipeContextProvider({ children }) {
                 setRecipesList,
                 recipe,
                 setRecipe,
+                editedRecipe,
+                setEditedRecipe,
             }}
         >
             {' '}

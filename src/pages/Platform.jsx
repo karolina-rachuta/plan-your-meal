@@ -6,6 +6,8 @@ import Recipes from '../components/app/Recipes';
 import Schedules from '../components/app/Schedules';
 import NewRecipe from '../components/app/NewRecipe';
 import NewSchedule from '../components/app/NewSchedule';
+import EditRecipe from '../components/app/EditRecipe';
+import EditSchedule from '../components/app/EditSchedule';
 
 function App() {
     const [screenNumber, setScreenNumber] = useState(1);
@@ -21,13 +23,23 @@ function App() {
                 {screenNumber === 1 && (
                     <MainDesktop handleScreenChange={handleScreenChange} />
                 )}
-                {screenNumber === 2 && <Recipes />}
-                {screenNumber === 3 && <Schedules />}
+                {screenNumber === 2 && (
+                    <Recipes handleScreenChange={handleScreenChange} />
+                )}
+                {screenNumber === 3 && (
+                    <Schedules handleScreenChange={handleScreenChange} />
+                )}
                 {screenNumber === 4 && (
                     <NewRecipe handleScreenChange={handleScreenChange} />
                 )}
                 {screenNumber === 5 && (
                     <NewSchedule handleScreenChange={handleScreenChange} />
+                )}
+                {screenNumber === 6 && (
+                    <EditRecipe handleScreenChange={handleScreenChange} />
+                )}
+                {screenNumber === 7 && (
+                    <EditSchedule handleScreenChange={handleScreenChange} />
                 )}
             </div>
         </div>

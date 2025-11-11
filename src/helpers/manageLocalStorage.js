@@ -4,7 +4,16 @@ export const savingToLocalStorage = (key, value) => {
 
 export const saveRecipeToLocalStorage = (recipe) => {
     const recipes = JSON.parse(localStorage.getItem('recipes')) || [];
-    recipes.push(recipe);
+    const currentRecipeId = recipe.id;
+    const existingIndex = recipes.findIndex((r) => r.id === currentRecipeId);
+    //czy to id jest juz moze w recipes
+    if (existingIndex >= 0) {
+        // jeśli istnieje — zaktualizuj
+        recipes[existingIndex] = recipe;
+    } else {
+        // jeśli nie ma — dodaj nowy
+        recipes.push(recipe);
+    }
     localStorage.setItem('recipes', JSON.stringify(recipes));
 };
 
@@ -25,6 +34,11 @@ export const readFromLocalStorage = (key) => {
     const data = localStorage.getItem(key);
     return JSON.parse(data)
 }
+export const deleteRecipeFromLocalStorage = (id) => {
+    const recipes = JSON.parse(localStorage.getItem('recipes')) || [];
+    const updatedRecipes = recipes.filter((r) => r.id !== id);
+    localStorage.setItem('recipes', JSON.stringify(updatedRecipes));
+};
 
 export const deleteFromLocalStorage = (key) => {
     localStorage.removeItem(key);
