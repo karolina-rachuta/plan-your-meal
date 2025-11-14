@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Add from '../../assets/add_plus.png';
 import Edit from '../../assets/edit_modify_icon.png';
 import TrashCan from '../../assets/trash_can_icon.png';
@@ -6,7 +6,7 @@ import { RecipeContext } from '../../contex/RecipeContext';
 import { saveRecipeToLocalStorage } from '../../helpers/manageLocalStorage';
 
 function EditRecipe({ handleScreenChange }) {
-    const { editedRecipe, setEditedRecipe, setRecipesList } =
+    const { editedRecipe, setEditedRecipe, updateRecipeInList } =
         useContext(RecipeContext);
 
     const [newInstruction, setNewInstruction] = useState('');
@@ -15,6 +15,7 @@ function EditRecipe({ handleScreenChange }) {
 
     function handleSavingRecipe() {
         saveRecipeToLocalStorage(editedRecipe);
+        updateRecipeInList(editedRecipe);
         setEditedRecipe(null);
         handleScreenChange(1);
     }

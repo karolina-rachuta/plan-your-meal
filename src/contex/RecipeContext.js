@@ -1,5 +1,5 @@
 import React, { useState, createContext, useEffect } from 'react';
-import { recipesFromDataBase } from '../recipes';
+import { recipesFromDataBase } from '../data/recipes';
 import { getRecipesFromLocalStorage } from '../helpers/manageLocalStorage';
 
 export const RecipeContext = createContext();
@@ -23,7 +23,16 @@ function RecipeContextProvider({ children }) {
         ];
         setRecipesList(combinedRecipes);
     }, []);
-    console.log(recipesList);
+
+    function addRecipeToRecipesList(newRecipe) {
+        setRecipesList((prev) => [...prev, newRecipe]);
+    }
+
+    function updateRecipeInList(updatedRecipe) {
+        setRecipesList((prev) =>
+            prev.map((r) => (r.id === updatedRecipe.id ? updatedRecipe : r))
+        );
+    }
 
     return (
         <RecipeContext.Provider
@@ -34,6 +43,8 @@ function RecipeContextProvider({ children }) {
                 setRecipe,
                 editedRecipe,
                 setEditedRecipe,
+                addRecipeToRecipesList,
+                updateRecipeInList,
             }}
         >
             {' '}

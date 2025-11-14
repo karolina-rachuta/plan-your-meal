@@ -3,6 +3,7 @@ import { RecipeContext } from '../../contex/RecipeContext';
 import Edit from '../../assets/edit_modify_icon.png';
 import TrashCan from '../../assets/trash_can_icon.png';
 import { deleteRecipeFromLocalStorage } from '../../helpers/manageLocalStorage.js';
+
 function Recipes({ handleScreenChange }) {
     const { recipesList, setRecipesList, setEditedRecipe } =
         useContext(RecipeContext);

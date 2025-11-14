@@ -18,6 +18,7 @@ function NewRecipe({ handleScreenChange }) {
         if (recipe.name && recipe.description) {
             recipe.id = uuidv4();
             saveRecipeToLocalStorage(recipe);
+            addRecipeToRecipesList(recipe);
             setRecipe({
                 id: '',
                 name: '',

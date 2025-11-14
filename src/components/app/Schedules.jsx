@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { ScheduleContext } from '../../contex/ScheduleContex';
 
-import { schedulesFromDataBase } from '../../schedules';
+import { schedulesFromDataBase } from '../../data/schedules';
 import Edit from '../../assets/edit_modify_icon.png';
 import TrashCan from '../../assets/trash_can_icon.png';
 
