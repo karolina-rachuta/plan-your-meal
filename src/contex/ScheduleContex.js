@@ -1,6 +1,7 @@
 import React, { createContext, useEffect, useState } from 'react';
 import { getScheduleFromLocalStorage } from '../helpers/manageLocalStorage';
 import { schedulesFromDataBase } from '../data/schedules';
+
 export const ScheduleContext = createContext();
 
 function ScheduleContexProvider({ children }) {
@@ -20,6 +21,7 @@ function ScheduleContexProvider({ children }) {
     function addScheduleToSchedulesList(schedule) {
         setScheduleList((prev) => [...prev, schedule]);
     }
+
     return (
         <ScheduleContext.Provider
             value={{

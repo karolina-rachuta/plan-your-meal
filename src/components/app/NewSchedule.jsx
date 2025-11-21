@@ -21,13 +21,14 @@ const INITIAL_MEAL = {
 
 function NewSchedule({ handleScreenChange }) {
     const { recipesList } = useContext(RecipeContext);
+    const { scheduleList, addScheduleToSchedulesList } =
+        useContext(ScheduleContext);
+
     const [meals, setMeals] = useState(INITIAL_MEAL);
     const [planName, setPlanName] = useState('');
     const [planDescription, setPlanDescription] = useState('');
     const [planWeekNumber, setPlanWeekNumber] = useState('');
-    const [scheduleId, setScheduleId] = useState('');
-    const { scheduleList, addScheduleToSchedulesList } =
-        useContext(ScheduleContext);
+    const [, setScheduleId] = useState('');
 
     const handleMealChange = (day, mealType, value) => {
         setMeals((prevMeals) => ({
@@ -41,9 +42,10 @@ function NewSchedule({ handleScreenChange }) {
 
     function handleSaveMealPlan() {
         if (planName && planDescription && planWeekNumber) {
-            setScheduleId(uuidv4());
+            const generatedScheduleId = uuidv4();
+            setScheduleId(generatedScheduleId);
             const newPlanMeal = {
-                id: scheduleId,
+                id: generatedScheduleId,
                 name: planName,
                 description: planDescription,
                 number: planWeekNumber,

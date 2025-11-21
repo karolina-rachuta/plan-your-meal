@@ -2,7 +2,6 @@ import React, { useContext, useState, useEffect } from 'react';
 import { RecipeContext } from '../../contex/RecipeContext';
 import { ScheduleContext } from '../../contex/ScheduleContex';
 import { saveScheduleToLocalStorage } from '../../helpers/manageLocalStorage';
-import { v4 as uuidv4 } from 'uuid';
 
 const INITIAL_MEAL = {
     Monday: { breakfast1: '', breakfast2: '', lunch: '', dinner: '' },
@@ -24,17 +23,13 @@ function EditSchedule({ handleScreenChange }) {
     const [planName, setPlanName] = useState('');
     const [planDescription, setPlanDescription] = useState('');
     const [planWeekNumber, setPlanWeekNumber] = useState('');
-    const [scheduleId, setScheduleId] = useState('');
+    const [, setScheduleId] = useState('');
 
-    const {
-        scheduleList,
-        setScheduleList,
-        addScheduleToSchedulesList,
-        setEditSchedule,
-        editSchedule,
-    } = useContext(ScheduleContext);
+    const { scheduleList, setScheduleList, setEditSchedule, editSchedule } =
+        useContext(ScheduleContext);
 
     const { recipesList } = useContext(RecipeContext);
+    console.log(editSchedule);
 
     useEffect(() => {
         if (editSchedule) {
@@ -58,26 +53,26 @@ function EditSchedule({ handleScreenChange }) {
 
     function handleSaveMealPlan() {
         if (planName && planDescription && planWeekNumber) {
-            setScheduleId(uuidv4());
+            // Tworzymy ZAKTUALIZOWANY obiekt planu,
+            // ale z TYM SAMYM id co edytowany plan!
             const newPlanMeal = {
-                id: scheduleId,
+                id: editSchedule.id,
                 name: planName,
                 description: planDescription,
                 number: planWeekNumber,
                 mealPlan: meals,
             };
-            if (editSchedule) {
-                const updatedList = scheduleList.map((s) =>
-                    s.id === editSchedule.id ? newPlanMeal : s
-                );
-                setScheduleList(updatedList);
-                saveScheduleToLocalStorage(newPlanMeal);
-                setEditSchedule(null);
-            } else {
-                addScheduleToSchedulesList(newPlanMeal);
-                saveScheduleToLocalStorage(newPlanMeal);
-            }
 
+            // Podmieniamy stary plan na nowy
+            const updatedList = scheduleList.map((s) =>
+                s.id === editSchedule.id ? newPlanMeal : s
+            );
+
+            setScheduleList(updatedList);
+            saveScheduleToLocalStorage(newPlanMeal);
+            setEditSchedule(null);
+
+            // Reset formularza
             setMeals(INITIAL_MEAL);
             setScheduleId('');
             setPlanName('');

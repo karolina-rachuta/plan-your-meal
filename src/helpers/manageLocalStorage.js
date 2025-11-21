@@ -1,7 +1,3 @@
-export const savingToLocalStorage = (key, value) => {
-    const recipe = localStorage.setItem(key, JSON.stringify(value));
-}
-
 export const saveRecipeToLocalStorage = (recipe) => {
     const recipes = JSON.parse(localStorage.getItem('recipes')) || [];
     const currentRecipeId = recipe.id;
@@ -19,7 +15,14 @@ export const saveRecipeToLocalStorage = (recipe) => {
 
 export const saveScheduleToLocalStorage = (schedule) => {
     const schedules = JSON.parse(localStorage.getItem('schedules')) || [];
-    schedules.push(schedule);
+    const currentScheduleId = schedule.id;
+    const existingIndex = schedules.findIndex((s) => s.id === currentScheduleId);
+
+    if (existingIndex >= 0) {
+        schedules[existingIndex] = schedule;
+    } else {
+        schedules.push(schedule);
+    }
     localStorage.setItem('schedules', JSON.stringify(schedules));
 };
 
@@ -30,16 +33,14 @@ export const getRecipesFromLocalStorage = () => {
     return JSON.parse(localStorage.getItem('recipes')) || [];
 }
 
-export const readFromLocalStorage = (key) => {
-    const data = localStorage.getItem(key);
-    return JSON.parse(data)
-}
 export const deleteRecipeFromLocalStorage = (id) => {
     const recipes = JSON.parse(localStorage.getItem('recipes')) || [];
     const updatedRecipes = recipes.filter((r) => r.id !== id);
     localStorage.setItem('recipes', JSON.stringify(updatedRecipes));
 };
 
-export const deleteFromLocalStorage = (key) => {
-    localStorage.removeItem(key);
+export const deleteScheduleFromLocalStorage = (id) => {
+    const schedules = JSON.parse(localStorage.getItem('schedules')) || [];
+    const updatedSchedules = schedules.filter((s) => s.id !== id);
+    localStorage.setItem('schedules', JSON.stringify(updatedSchedules));
 }
