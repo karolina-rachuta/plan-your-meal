@@ -1,5 +1,14 @@
 # Plan your meal
 
-//edytowanie przepisów
-//usuwanie przepisów
-//usuwanie mealplanow na stale z local storage
+Application for creating and saving recipes, as well as building meal plans from the added recipes.
+
+## Demo
+
+https://quickmealplan.netlify.app/app
+
+## Tech Stack
+
+-   React (React Router, Context API, Hooks)
+-   SCSS
+-   Local Storage
+-   EsLint
