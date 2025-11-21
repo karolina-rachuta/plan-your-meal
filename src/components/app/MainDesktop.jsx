@@ -69,7 +69,8 @@ function MainDesktop({ handleScreenChange }) {
                             alt="Check"
                             className="widget__add--right"
                         />{' '}
-                        So glad you're here! Happy planning and bon appétit!
+                        So glad you&apos;re here! Happy planning and bon
+                        appétit!
                     </p>
                 </div>
             </div>

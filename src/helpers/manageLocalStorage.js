@@ -16,7 +16,9 @@ export const saveRecipeToLocalStorage = (recipe) => {
 export const saveScheduleToLocalStorage = (schedule) => {
     const schedules = JSON.parse(localStorage.getItem('schedules')) || [];
     const currentScheduleId = schedule.id;
-    const existingIndex = schedules.findIndex((s) => s.id === currentScheduleId);
+    const existingIndex = schedules.findIndex(
+        (s) => s.id === currentScheduleId
+    );
 
     if (existingIndex >= 0) {
         schedules[existingIndex] = schedule;
@@ -28,10 +30,10 @@ export const saveScheduleToLocalStorage = (schedule) => {
 
 export const getScheduleFromLocalStorage = () => {
     return JSON.parse(localStorage.getItem('schedules')) || [];
-}
+};
 export const getRecipesFromLocalStorage = () => {
     return JSON.parse(localStorage.getItem('recipes')) || [];
-}
+};
 
 export const deleteRecipeFromLocalStorage = (id) => {
     const recipes = JSON.parse(localStorage.getItem('recipes')) || [];
@@ -43,4 +45,4 @@ export const deleteScheduleFromLocalStorage = (id) => {
     const schedules = JSON.parse(localStorage.getItem('schedules')) || [];
     const updatedSchedules = schedules.filter((s) => s.id !== id);
     localStorage.setItem('schedules', JSON.stringify(updatedSchedules));
-}
+};

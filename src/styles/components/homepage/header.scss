@@ -22,7 +22,6 @@
             display: flex;
             width: 100%;
 
-
             @media screen and (min-width: 620px) {
                 width: 30%;
             }
@@ -56,10 +55,8 @@
                     height: 3px;
                     border-radius: 5px;
                 }
-
             }
         }
-
     }
 
     &__navbar {
@@ -94,7 +91,7 @@
             }
 
             &::after {
-                content: "";
+                content: '';
                 border-bottom: 2px solid transparent;
                 position: absolute;
                 width: 100%;
@@ -116,5 +113,4 @@
     .open {
         display: flex;
     }
-
 }
