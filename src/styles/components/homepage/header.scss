@@ -1,6 +1,6 @@
 .header {
     width: 100%;
-    padding-inline: 10px;
+    padding-inline: 30px;
     background-color: $primary-color;
     color: $bg-color;
     padding-top: 10px;
@@ -31,6 +31,7 @@
                 font-family: 'charmonmanregular', sans-serif;
                 color: $hover-color;
                 font-size: 25px;
+                text-decoration: none;
 
                 .logo__color {
                     font-family: 'charmonmanbold', sans-serif;
@@ -85,27 +86,33 @@
             text-align: center;
             position: relative;
             cursor: pointer;
+            font-size: 20px;
+            border: 1px white solid;
+            padding: 10px;
+            border-radius: 10px;
 
             &--active {
                 color: $hover-color;
             }
 
-            &::after {
-                content: '';
-                border-bottom: 2px solid transparent;
-                position: absolute;
-                width: 100%;
-                left: 0;
-                bottom: -10px;
-                transition: border-color 0.3s;
-            }
+            // &::after {
+            //     content: '';
+            //     border-bottom: 2px solid transparent;
+            //     position: absolute;
+            //     width: 100%;
+            //     left: 0;
+            //     bottom: -10px;
+            //     transition: border-color 0.3s;
+            // }
 
             &:hover {
-                color: $hover-color;
+                background: #000;
+                transform: scale(102%);
+                // transition: cubic-bezier(0.075, 0.82, 0.165, 1);
 
-                &::after {
-                    border-bottom-color: $hover-color;
-                }
+                // &::after {
+                //     border-bottom-color: $hover-color;
+                // }
             }
         }
     }
