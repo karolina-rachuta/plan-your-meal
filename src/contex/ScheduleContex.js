@@ -9,13 +9,13 @@ function ScheduleContexProvider({ children }) {
     const [schedule, setSchedule] = useState({});
     const [editSchedule, setEditSchedule] = useState(null);
 
-    const scheduleFromLocalStorage = getScheduleFromLocalStorage();
-
     useEffect(() => {
-        setScheduleList([
-            ...scheduleFromLocalStorage,
+        const scheduleFromLocalStorage = getScheduleFromLocalStorage();
+        const combinedSchedules = [
             ...schedulesFromDataBase,
-        ]);
+            ...scheduleFromLocalStorage,
+        ];
+        setScheduleList(combinedSchedules);
     }, []);
 
     function addScheduleToSchedulesList(schedule) {
@@ -25,7 +25,6 @@ function ScheduleContexProvider({ children }) {
     return (
         <ScheduleContext.Provider
             value={{
-                scheduleFromLocalStorage,
                 addScheduleToSchedulesList,
                 scheduleList,
                 setScheduleList,
