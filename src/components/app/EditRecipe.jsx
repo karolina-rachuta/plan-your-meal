@@ -1,13 +1,12 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Add from '../../assets/add_plus.png';
 import Edit from '../../assets/edit_modify_icon.png';
 import TrashCan from '../../assets/trash_can_icon.png';
 import { RecipeContext } from '../../contex/RecipeContext';
 import { saveRecipeToLocalStorage } from '../../helpers/manageLocalStorage';
-import { v4 as uuidv4 } from 'uuid';
 
-function NewRecipe({ handleScreenChange }) {
-    const { addRecipeToRecipesList, recipe, setRecipe } =
+function EditRecipe({ handleScreenChange }) {
+    const { editedRecipe, setEditedRecipe, updateRecipeInList } =
         useContext(RecipeContext);
 
     const [newInstruction, setNewInstruction] = useState('');
@@ -15,34 +14,23 @@ function NewRecipe({ handleScreenChange }) {
     const [editingIndex, setEditingIndex] = useState(null);
 
     function handleSavingRecipe() {
-        if (recipe.name && recipe.description) {
-            recipe.id = uuidv4();
-            saveRecipeToLocalStorage(recipe);
-            addRecipeToRecipesList(recipe);
-            setRecipe({
-                id: '',
-                name: '',
-                description: '',
-                instructions: [],
-                ingredients: [],
-            });
-            handleScreenChange(1);
-        } else {
-            alert('Please provide a recipe name and description.');
-        }
+        saveRecipeToLocalStorage(editedRecipe);
+        updateRecipeInList(editedRecipe);
+        setEditedRecipe(null);
+        handleScreenChange(1);
     }
 
     function handleAddingInstruction() {
         if (editingIndex !== null) {
-            const updatedInstructions = [...recipe.instructions];
+            const updatedInstructions = [...editedRecipe.instructions];
             updatedInstructions[editingIndex] = newInstruction;
-            setRecipe((prev) => ({
+            setEditedRecipe((prev) => ({
                 ...prev,
                 instructions: updatedInstructions,
             }));
             setEditingIndex(null);
         } else if (newInstruction) {
-            setRecipe((prev) => ({
+            setEditedRecipe((prev) => ({
                 ...prev,
                 instructions: [...prev.instructions, newInstruction],
             }));
@@ -52,15 +40,15 @@ function NewRecipe({ handleScreenChange }) {
 
     function handleAddingIngredient() {
         if (editingIndex !== null) {
-            const updatedIngredients = [...recipe.ingredients];
+            const updatedIngredients = [...editedRecipe.ingredients];
             updatedIngredients[editingIndex] = newIngredient;
-            setRecipe((prev) => ({
+            setEditedRecipe((prev) => ({
                 ...prev,
                 ingredients: updatedIngredients,
             }));
             setEditingIndex(null);
         } else if (newIngredient) {
-            setRecipe((prev) => ({
+            setEditedRecipe((prev) => ({
                 ...prev,
                 ingredients: [...prev.ingredients, newIngredient],
             }));
@@ -69,31 +57,36 @@ function NewRecipe({ handleScreenChange }) {
     }
 
     function handleDeletingIngredient(index) {
-        const updatedIngredients = recipe.ingredients.filter(
+        const updatedIngredients = editedRecipe.ingredients.filter(
             (_, id) => id !== index
         );
-        setRecipe((prev) => ({
+        setEditedRecipe((prev) => ({
             ...prev,
             ingredients: updatedIngredients,
         }));
     }
 
     function handleDeletingInstruction(index) {
-        const updatedInstructions = recipe.instructions.filter(
+        const updatedInstructions = editedRecipe.instructions.filter(
             (_, id) => id !== index
         );
-        setRecipe((prev) => ({ ...prev, instructions: updatedInstructions }));
+        setEditedRecipe((prev) => ({
+            ...prev,
+            instructions: updatedInstructions,
+        }));
     }
 
     function handleEditInstruction(index) {
         setEditingIndex(index);
-        setNewInstruction(recipe.instructions[index]);
+        setNewInstruction(editedRecipe.instructions[index]);
     }
 
     function handleEditIngredient(index) {
         setEditingIndex(index);
-        setNewIngredient(recipe.ingredients[index]);
+        setNewIngredient(editedRecipe.ingredients[index]);
     }
+
+    if (!editedRecipe) return <div>Loading...</div>;
 
     return (
         <div className="maindesktop__container add__container">
@@ -112,9 +105,12 @@ function NewRecipe({ handleScreenChange }) {
                         type="text"
                         id="recipe_name"
                         className="add__input"
-                        value={recipe.name}
+                        value={editedRecipe.name}
                         onChange={(e) =>
-                            setRecipe({ ...recipe, name: e.target.value })
+                            setEditedRecipe({
+                                ...editedRecipe,
+                                name: e.target.value,
+                            })
                         }
                     />
                 </div>
@@ -126,10 +122,10 @@ function NewRecipe({ handleScreenChange }) {
                         type="text"
                         id="recipe_description"
                         className="add__input"
-                        value={recipe.description}
+                        value={editedRecipe.description}
                         onChange={(e) =>
-                            setRecipe({
-                                ...recipe,
+                            setEditedRecipe({
+                                ...editedRecipe,
                                 description: e.target.value,
                             })
                         }
@@ -161,27 +157,29 @@ function NewRecipe({ handleScreenChange }) {
                     </div>
                     <div>
                         <ol>
-                            {recipe.instructions.map((instruction, index) => (
-                                <li key={index}>
-                                    {instruction}
-                                    <img
-                                        src={Edit}
-                                        alt="Pencil"
-                                        className="icon icon--small"
-                                        onClick={() =>
-                                            handleEditInstruction(index)
-                                        }
-                                    />
-                                    <img
-                                        src={TrashCan}
-                                        alt="Trash can"
-                                        className="icon icon--small"
-                                        onClick={() =>
-                                            handleDeletingInstruction(index)
-                                        }
-                                    />
-                                </li>
-                            ))}
+                            {editedRecipe.instructions.map(
+                                (instruction, index) => (
+                                    <li key={index}>
+                                        {instruction}
+                                        <img
+                                            src={Edit}
+                                            alt="Pencil"
+                                            className="icon icon--small"
+                                            onClick={() =>
+                                                handleEditInstruction(index)
+                                            }
+                                        />
+                                        <img
+                                            src={TrashCan}
+                                            alt="Trash can"
+                                            className="icon icon--small"
+                                            onClick={() =>
+                                                handleDeletingInstruction(index)
+                                            }
+                                        />
+                                    </li>
+                                )
+                            )}
                         </ol>
                     </div>
                 </div>
@@ -204,32 +202,34 @@ function NewRecipe({ handleScreenChange }) {
                             onClick={handleAddingIngredient}
                             className="icon__container "
                         >
-                            <img src={Add} alt="plus" className="icon" />
+                            <img src={Add} alt="Plus" className="icon" />
                         </button>
                     </div>
                     <div>
                         <ol>
-                            {recipe.ingredients.map((ingredient, index) => (
-                                <li key={index}>
-                                    {ingredient}
-                                    <img
-                                        src={Edit}
-                                        alt="Pencil"
-                                        className="icon icon--small"
-                                        onClick={() =>
-                                            handleEditIngredient(index)
-                                        }
-                                    />
-                                    <img
-                                        src={TrashCan}
-                                        alt="Trash can"
-                                        className="icon icon--small"
-                                        onClick={() =>
-                                            handleDeletingIngredient(index)
-                                        }
-                                    />
-                                </li>
-                            ))}
+                            {editedRecipe.ingredients.map(
+                                (ingredient, index) => (
+                                    <li key={index}>
+                                        {ingredient}
+                                        <img
+                                            src={Edit}
+                                            alt="Pencil"
+                                            className="icon icon--small"
+                                            onClick={() =>
+                                                handleEditIngredient(index)
+                                            }
+                                        />
+                                        <img
+                                            src={TrashCan}
+                                            alt="Trash can"
+                                            className="icon icon--small"
+                                            onClick={() =>
+                                                handleDeletingIngredient(index)
+                                            }
+                                        />
+                                    </li>
+                                )
+                            )}
                         </ol>
                     </div>
                 </div>
@@ -238,4 +238,4 @@ function NewRecipe({ handleScreenChange }) {
     );
 }
 
-export default NewRecipe;
+export default EditRecipe;
