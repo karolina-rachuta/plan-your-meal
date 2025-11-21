@@ -28,6 +28,29 @@
             text-align: center;
         }
 
+        &.active {
+            padding: 20px;
+            border-left: 5px solid $hover-color;
+            color: $hover-color;
+
+            @media only screen and (max-width: 580px) {
+                border-left: none;
+            }
+
+            &::after {
+                content: "►";
+                font-weight: bold;
+                position: absolute;
+                right: 30px;
+                color: $hover-color;
+
+                @media only screen and (max-width: 580px) {
+                    content: "▼";
+                    right: 0px;
+                }
+            }
+        }
+
         &:hover {
             border-left: 5px solid $hover-color;
             color: $hover-color;

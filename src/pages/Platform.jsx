@@ -19,7 +19,10 @@ function App() {
         <div>
             <AppHeader />
             <div className="container platform__main">
-                <SideNavigationBar handleScreenChange={handleScreenChange} />
+                <SideNavigationBar
+                    handleScreenChange={handleScreenChange}
+                    screenNumber={screenNumber}
+                />
                 {screenNumber === 1 && (
                     <MainDesktop handleScreenChange={handleScreenChange} />
                 )}

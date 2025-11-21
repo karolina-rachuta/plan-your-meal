@@ -152,7 +152,7 @@ function EditRecipe({ handleScreenChange }) {
                             onClick={handleAddingInstruction}
                             className="icon__container"
                         >
-                            <img src={Add} alt="" className="icon" />
+                            <img src={Add} alt="Plus" className="icon" />
                         </button>
                     </div>
                     <div>
@@ -163,7 +163,7 @@ function EditRecipe({ handleScreenChange }) {
                                         {instruction}
                                         <img
                                             src={Edit}
-                                            alt=""
+                                            alt="Pencil"
                                             className="icon icon--small"
                                             onClick={() =>
                                                 handleEditInstruction(index)
@@ -171,7 +171,7 @@ function EditRecipe({ handleScreenChange }) {
                                         />
                                         <img
                                             src={TrashCan}
-                                            alt=""
+                                            alt="Trash can"
                                             className="icon icon--small"
                                             onClick={() =>
                                                 handleDeletingInstruction(index)
@@ -202,7 +202,7 @@ function EditRecipe({ handleScreenChange }) {
                             onClick={handleAddingIngredient}
                             className="icon__container "
                         >
-                            <img src={Add} alt="" className="icon" />
+                            <img src={Add} alt="Plus" className="icon" />
                         </button>
                     </div>
                     <div>
@@ -213,7 +213,7 @@ function EditRecipe({ handleScreenChange }) {
                                         {ingredient}
                                         <img
                                             src={Edit}
-                                            alt=""
+                                            alt="Pencil"
                                             className="icon icon--small"
                                             onClick={() =>
                                                 handleEditIngredient(index)
@@ -221,7 +221,7 @@ function EditRecipe({ handleScreenChange }) {
                                         />
                                         <img
                                             src={TrashCan}
-                                            alt=""
+                                            alt="Trash can"
                                             className="icon icon--small"
                                             onClick={() =>
                                                 handleDeletingIngredient(index)

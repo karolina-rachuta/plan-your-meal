@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 import { RecipeContext } from '../../contex/RecipeContext';
 import { ScheduleContext } from '../../contex/ScheduleContex';
 import { saveScheduleToLocalStorage } from '../../helpers/manageLocalStorage';
+import { v4 as uuidv4 } from 'uuid';
 
 const INITIAL_MEAL = {
     Monday: { breakfast1: '', breakfast2: '', lunch: '', dinner: '' },
@@ -24,13 +25,9 @@ function NewSchedule({ handleScreenChange }) {
     const [planName, setPlanName] = useState('');
     const [planDescription, setPlanDescription] = useState('');
     const [planWeekNumber, setPlanWeekNumber] = useState('');
-    const {
-        scheduleList,
-        setScheduleList,
-        schedule,
-        setSchedule,
-        addScheduleToSchedulesList,
-    } = useContext(ScheduleContext);
+    const [scheduleId, setScheduleId] = useState('');
+    const { scheduleList, addScheduleToSchedulesList } =
+        useContext(ScheduleContext);
 
     const handleMealChange = (day, mealType, value) => {
         setMeals((prevMeals) => ({
@@ -44,7 +41,9 @@ function NewSchedule({ handleScreenChange }) {
 
     function handleSaveMealPlan() {
         if (planName && planDescription && planWeekNumber) {
+            setScheduleId(uuidv4());
             const newPlanMeal = {
+                id: scheduleId,
                 name: planName,
                 description: planDescription,
                 number: planWeekNumber,
@@ -53,6 +52,7 @@ function NewSchedule({ handleScreenChange }) {
             addScheduleToSchedulesList(newPlanMeal);
             saveScheduleToLocalStorage(newPlanMeal);
             setMeals(INITIAL_MEAL);
+            setScheduleId('');
             setPlanName('');
             setPlanDescription('');
             setPlanWeekNumber('');
@@ -61,11 +61,6 @@ function NewSchedule({ handleScreenChange }) {
             alert('Please fill in all fields and select meals for each day.');
         }
     }
-    const areAllMealsSelected = () => {
-        return Object.values(meals).every((day) =>
-            Object.values(day).every((meal) => meal !== '')
-        );
-    };
 
     function handlePlanNumber(e) {
         const inputWeekNumber = Number(e.target.value);

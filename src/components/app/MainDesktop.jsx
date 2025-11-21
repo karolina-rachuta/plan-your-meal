@@ -35,22 +35,22 @@ function MainDesktop({ handleScreenChange }) {
                         className="widget__box"
                         onClick={() => handleScreenChange(4)}
                     >
-                        <img src={Plus} alt="" className="widget__add" />
-                        add recipe
+                        <img src={Plus} alt="Plus" className="widget__add" />
+                        Add Recipe
                     </button>
                     <button
                         className="widget__box"
                         onClick={() => handleScreenChange(5)}
                     >
-                        <img src={Plus} alt="" className="widget__add" /> add
-                        plan
+                        <img src={Plus} alt="Plus" className="widget__add" />{' '}
+                        Add Meal Plan
                     </button>
                 </div>
                 <div className="maindesktop__widget maindesktop__widget--col">
                     <p className="widget__box widget__box--right">
                         <img
                             src={Information}
-                            alt=""
+                            alt="Information"
                             className="widget__add--right"
                         />
                         You have {totalRecipes} recipes
@@ -58,15 +58,15 @@ function MainDesktop({ handleScreenChange }) {
                     <p className="widget__box widget__box--right">
                         <img
                             src={Exclamation}
-                            alt=""
+                            alt="Exclamation"
                             className="widget__add--right"
                         />
-                        Remember to add a plan!
+                        Remember to add a meal plan!
                     </p>
                     <p className="widget__box widget__box--right">
                         <img
                             src={Check}
-                            alt=""
+                            alt="Check"
                             className="widget__add--right"
                         />{' '}
                         So glad you're here! Happy planning and bon appétit!
