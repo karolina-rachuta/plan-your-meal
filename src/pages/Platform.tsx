@@ -12,7 +12,7 @@ import EditSchedule from '../components/app/EditSchedule';
 function App() {
     const [screenNumber, setScreenNumber] = useState(1);
 
-    const handleScreenChange = (screen) => {
+    const handleScreenChange = (screen: number) => {
         setScreenNumber(screen);
     };
     return (

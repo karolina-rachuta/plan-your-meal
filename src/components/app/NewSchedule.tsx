@@ -4,7 +4,7 @@ import { ScheduleContext } from '../../contex/ScheduleContex';
 import { saveScheduleToLocalStorage } from '../../helpers/manageLocalStorage';
 import { v4 as uuidv4 } from 'uuid';
 
-const INITIAL_MEAL = {
+const INITIAL_SCHEDULE = {
     Monday: { breakfast1: '', breakfast2: '', lunch: '', dinner: '' },
     Tuesday: { breakfast1: '', breakfast2: '', lunch: '', dinner: '' },
     Wednesday: {
@@ -24,7 +24,7 @@ function NewSchedule({ handleScreenChange }) {
     const { scheduleList, addScheduleToSchedulesList } =
         useContext(ScheduleContext);
 
-    const [meals, setMeals] = useState(INITIAL_MEAL);
+    const [meals, setMeals] = useState(INITIAL_SCHEDULE);
     const [planName, setPlanName] = useState('');
     const [planDescription, setPlanDescription] = useState('');
     const [planWeekNumber, setPlanWeekNumber] = useState('');
@@ -53,7 +53,7 @@ function NewSchedule({ handleScreenChange }) {
             };
             addScheduleToSchedulesList(newPlanMeal);
             saveScheduleToLocalStorage(newPlanMeal);
-            setMeals(INITIAL_MEAL);
+            setMeals(INITIAL_SCHEDULE);
             setScheduleId('');
             setPlanName('');
             setPlanDescription('');

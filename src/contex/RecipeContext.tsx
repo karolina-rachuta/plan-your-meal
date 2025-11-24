@@ -1,12 +1,31 @@
 import React, { useState, createContext, useEffect } from 'react';
+import type { ReactNode } from 'react';
 import { recipesFromDataBase } from '../data/recipes';
 import { getRecipesFromLocalStorage } from '../helpers/manageLocalStorage';
 
-export const RecipeContext = createContext();
+type Recipe = {
+    id: string,
+    name: string,
+    description: string,
+    ingredients: string[],
+    instructions: string[],
+}
+type RecipeContextType = {
+    recipesList: Recipe[],
+    setRecipesList: React.Dispatch<React.SetStateAction<Recipe[]>>
+    recipe: Recipe,
+    setRecipe: React.Dispatch<React.SetStateAction<Recipe>>,
+    editedRecipe: Recipe | null,
+    setEditedRecipe: React.Dispatch<React.SetStateAction<Recipe | null>>
+    addRecipeToRecipesList: (value: Recipe) => void,
+    updateRecipeInList: (value: Recipe) => void
+}
 
-function RecipeContextProvider({ children }) {
-    const [recipesList, setRecipesList] = useState([]);
-    const [recipe, setRecipe] = useState({
+export const RecipeContext = createContext<RecipeContextType | undefined>(undefined);
+
+function RecipeContextProvider({ children }: { children: ReactNode }) {
+    const [recipesList, setRecipesList] = useState<Recipe[]>([]);
+    const [recipe, setRecipe] = useState<Recipe>({
         id: '',
         name: '',
         description: '',
@@ -24,11 +43,11 @@ function RecipeContextProvider({ children }) {
         setRecipesList(combinedRecipes);
     }, []);
 
-    function addRecipeToRecipesList(newRecipe) {
+    function addRecipeToRecipesList(newRecipe: Recipe) {
         setRecipesList((prev) => [...prev, newRecipe]);
     }
 
-    function updateRecipeInList(updatedRecipe) {
+    function updateRecipeInList(updatedRecipe: Recipe) {
         setRecipesList((prev) =>
             prev.map((r) => (r.id === updatedRecipe.id ? updatedRecipe : r))
         );

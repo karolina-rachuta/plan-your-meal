@@ -1,0 +1,31 @@
+{
+    // Visit https://aka.ms/tsconfig to read more about this file
+    "compilerOptions": {
+        // File Layout
+        // "rootDir": "./src",
+        // "outDir": "./dist",
+
+        // Environment Settings
+        // See also https://aka.ms/tsconfig/module
+        "module": "esnext",
+        "target": "es5",
+        "types": [],
+        "sourceMap": true,
+        "declaration": true,
+        "declarationMap": true,
+        "noUncheckedIndexedAccess": true,
+        "exactOptionalPropertyTypes": true,
+        "strict": true,
+        "jsx": "react",
+        "verbatimModuleSyntax": true,
+        "isolatedModules": true,
+        "moduleDetection": "force",
+        "skipLibCheck": true,
+        "allowJs": false,
+        "checkJs": false,
+        "moduleResolution": "Node",
+        "resolveJsonModule": true,
+        "esModuleInterop": true,
+        "forceConsistentCasingInFileNames": true
+    },
+}
