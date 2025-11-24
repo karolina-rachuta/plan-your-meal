@@ -1,4 +1,5 @@
-export const schedulesFromDataBase = [{
+export const schedulesFromDataBase = [
+    {
         name: 'Healthy Week Plan',
         description: 'A balanced and nutritious plan for a healthy week.',
         number: 1,
@@ -98,7 +99,8 @@ export const schedulesFromDataBase = [{
     },
     {
         name: 'High Protein Plan',
-        description: 'A meal plan focused on protein-rich dishes for active individuals.',
+        description:
+            'A meal plan focused on protein-rich dishes for active individuals.',
         number: 3,
         mealPlan: {
             monday: {

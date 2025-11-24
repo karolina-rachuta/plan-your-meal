@@ -1,21 +1,29 @@
 import React, { useContext } from 'react';
-import { ScheduleContext } from '../../contex/ScheduleContex';
+import { ScheduleContext, type Schedule } from '../../contex/ScheduleContex';
 import Edit from '../../assets/edit_modify_icon.png';
 import TrashCan from '../../assets/trash_can_icon.png';
 import { deleteScheduleFromLocalStorage } from '../../helpers/manageLocalStorage';
 
-function Schedules({ handleScreenChange }) {
-    const { scheduleList, setScheduleList, setEditSchedule } =
-        useContext(ScheduleContext);
+function Schedules({
+    handleScreenChange,
+}: {
+    handleScreenChange: (value: number) => void;
+}) {
+    const context = useContext(ScheduleContext);
+    if (!context) {
+        throw Error('Schedule context is undefined');
+    }
+    const { scheduleList, setScheduleList, setEditSchedule } = context;
 
-    function handleDelete(id) {
-        const updatedList = scheduleList.filter((s) => s.id !== id);
+    function handleDelete(id: string) {
+        const updatedList = scheduleList.filter((s: Schedule) => s.id !== id);
         setScheduleList(updatedList);
         deleteScheduleFromLocalStorage(id);
     }
 
-    function handleEdit(id) {
-        const editedSchedule = scheduleList.find((s) => s.id === id);
+    function handleEdit(id: string) {
+        const editedSchedule = scheduleList.find((s: Schedule) => s.id === id);
+        if (!editedSchedule) return;
         setEditSchedule(editedSchedule);
         handleScreenChange(7);
     }

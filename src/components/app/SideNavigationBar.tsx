@@ -1,6 +1,12 @@
 import React from 'react';
 
-function SideNavigationBar({ handleScreenChange, screenNumber }) {
+function SideNavigationBar({
+    handleScreenChange,
+    screenNumber,
+}: {
+    handleScreenChange: (value: number) => void;
+    screenNumber: number;
+}) {
     return (
         <div className="sidebar__container">
             <p

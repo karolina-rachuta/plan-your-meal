@@ -6,22 +6,26 @@ import { RecipeContext } from '../../contex/RecipeContext';
 import { saveRecipeToLocalStorage } from '../../helpers/manageLocalStorage';
 import { v4 as uuidv4 } from 'uuid';
 
-function NewRecipe({ handleScreenChange }) {
+function NewRecipe({
+    handleScreenChange,
+}: {
+    handleScreenChange: (value: number) => void;
+}) {
     const context = useContext(RecipeContext);
     if (!context) {
-        throw Error('Context is undefined')
+        throw Error('Context is undefined');
     }
-    const { addRecipeToRecipesList, recipe, setRecipe } = context
+    const { addRecipeToRecipesList, recipe, setRecipe } = context;
 
-    const [newInstruction, setNewInstruction] = useState('');
-    const [newIngredient, setNewIngredient] = useState('');
-    const [editingIndex, setEditingIndex] = useState(null);
+    const [newInstruction, setNewInstruction] = useState<string>('');
+    const [newIngredient, setNewIngredient] = useState<string>('');
+    const [editingIndex, setEditingIndex] = useState<number | null>(null);
 
     function handleSavingRecipe() {
         if (recipe.name && recipe.description) {
             const savedRecipe = {
                 ...recipe,
-                id: uuidv4()
+                id: uuidv4(),
             };
             saveRecipeToLocalStorage(savedRecipe);
             addRecipeToRecipesList(savedRecipe);
@@ -74,7 +78,7 @@ function NewRecipe({ handleScreenChange }) {
         setNewIngredient('');
     }
 
-    function handleDeletingIngredient(index) {
+    function handleDeletingIngredient(index: number) {
         const updatedIngredients = recipe.ingredients.filter(
             (_, id) => id !== index
         );
@@ -84,21 +88,21 @@ function NewRecipe({ handleScreenChange }) {
         }));
     }
 
-    function handleDeletingInstruction(index) {
+    function handleDeletingInstruction(index: number) {
         const updatedInstructions = recipe.instructions.filter(
             (_, id) => id !== index
         );
         setRecipe((prev) => ({ ...prev, instructions: updatedInstructions }));
     }
 
-    function handleEditInstruction(index) {
+    function handleEditInstruction(index: number) {
         setEditingIndex(index);
-        setNewInstruction(recipe.instructions[index]);
+        setNewInstruction(recipe.instructions[index] ?? '');
     }
 
-    function handleEditIngredient(index) {
+    function handleEditIngredient(index: number) {
         setEditingIndex(index);
-        setNewIngredient(recipe.ingredients[index]);
+        setNewIngredient(recipe.ingredients[index] ?? '');
     }
 
     return (

@@ -3,25 +3,28 @@ import type { ReactNode } from 'react';
 import { recipesFromDataBase } from '../data/recipes';
 import { getRecipesFromLocalStorage } from '../helpers/manageLocalStorage';
 
-type Recipe = {
-    id: string,
-    name: string,
-    description: string,
-    ingredients: string[],
-    instructions: string[],
-}
-type RecipeContextType = {
-    recipesList: Recipe[],
-    setRecipesList: React.Dispatch<React.SetStateAction<Recipe[]>>
-    recipe: Recipe,
-    setRecipe: React.Dispatch<React.SetStateAction<Recipe>>,
-    editedRecipe: Recipe | null,
-    setEditedRecipe: React.Dispatch<React.SetStateAction<Recipe | null>>
-    addRecipeToRecipesList: (value: Recipe) => void,
-    updateRecipeInList: (value: Recipe) => void
-}
+export type Recipe = {
+    id: string;
+    name: string;
+    description: string;
+    ingredients: string[];
+    instructions: string[];
+};
 
-export const RecipeContext = createContext<RecipeContextType | undefined>(undefined);
+export type RecipeContextType = {
+    recipesList: Recipe[];
+    setRecipesList: React.Dispatch<React.SetStateAction<Recipe[]>>;
+    recipe: Recipe;
+    setRecipe: React.Dispatch<React.SetStateAction<Recipe>>;
+    editedRecipe: Recipe | null;
+    setEditedRecipe: React.Dispatch<React.SetStateAction<Recipe | null>>;
+    addRecipeToRecipesList: (value: Recipe) => void;
+    updateRecipeInList: (value: Recipe) => void;
+};
+
+export const RecipeContext = createContext<RecipeContextType | undefined>(
+    undefined
+);
 
 function RecipeContextProvider({ children }: { children: ReactNode }) {
     const [recipesList, setRecipesList] = useState<Recipe[]>([]);

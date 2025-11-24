@@ -1,6 +1,11 @@
 import React, { useContext, useState } from 'react';
 import { RecipeContext } from '../../contex/RecipeContext';
-import { ScheduleContext } from '../../contex/ScheduleContex';
+import {
+    ScheduleContext,
+    type WeekSchedule,
+    type DayMeals,
+    type Schedule,
+} from '../../contex/ScheduleContex';
 import { saveScheduleToLocalStorage } from '../../helpers/manageLocalStorage';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -19,18 +24,36 @@ const INITIAL_SCHEDULE = {
     Sunday: { breakfast1: '', breakfast2: '', lunch: '', dinner: '' },
 };
 
-function NewSchedule({ handleScreenChange }) {
-    const { recipesList } = useContext(RecipeContext);
-    const { scheduleList, addScheduleToSchedulesList } =
-        useContext(ScheduleContext);
+function NewSchedule({
+    handleScreenChange,
+}: {
+    handleScreenChange: (value: number) => void;
+}) {
+    const recipeContext = useContext(RecipeContext);
 
-    const [meals, setMeals] = useState(INITIAL_SCHEDULE);
-    const [planName, setPlanName] = useState('');
-    const [planDescription, setPlanDescription] = useState('');
-    const [planWeekNumber, setPlanWeekNumber] = useState('');
-    const [, setScheduleId] = useState('');
+    if (!recipeContext) {
+        throw Error('Recipe Context is undefined');
+    }
+    const { recipesList } = recipeContext;
 
-    const handleMealChange = (day, mealType, value) => {
+    const scheduleContext = useContext(ScheduleContext);
+
+    if (!scheduleContext) {
+        throw Error('Schedule Context is undefined');
+    }
+    const { scheduleList, addScheduleToSchedulesList } = scheduleContext;
+
+    const [meals, setMeals] = useState<WeekSchedule>(INITIAL_SCHEDULE);
+    const [planName, setPlanName] = useState<string>('');
+    const [planDescription, setPlanDescription] = useState<string>('');
+    const [planWeekNumber, setPlanWeekNumber] = useState<string | number>('');
+    const [, setScheduleId] = useState<string>('');
+
+    const handleMealChange = (
+        day: keyof WeekSchedule,
+        mealType: keyof DayMeals,
+        value: string
+    ) => {
         setMeals((prevMeals) => ({
             ...prevMeals,
             [day]: {
@@ -44,7 +67,7 @@ function NewSchedule({ handleScreenChange }) {
         if (planName && planDescription && planWeekNumber) {
             const generatedScheduleId = uuidv4();
             setScheduleId(generatedScheduleId);
-            const newPlanMeal = {
+            const newPlanMeal: Schedule = {
                 id: generatedScheduleId,
                 name: planName,
                 description: planDescription,
@@ -64,11 +87,12 @@ function NewSchedule({ handleScreenChange }) {
         }
     }
 
-    function handlePlanNumber(e) {
+    function handlePlanNumber(e: React.ChangeEvent<HTMLInputElement>) {
         const inputWeekNumber = Number(e.target.value);
         if (
             scheduleList.find(
-                (schedule) => Number(schedule.number) === inputWeekNumber
+                (schedule: Schedule) =>
+                    Number(schedule.number) === inputWeekNumber
             )
         ) {
             alert(
@@ -142,31 +166,40 @@ function NewSchedule({ handleScreenChange }) {
                     <h4>Dinner</h4>
                 </div>
                 <div className="add__botom add__bottom--col">
-                    {Object.keys(meals).map((day) => (
-                        <div className="add__row" key={day}>
-                            <h4>{day}</h4>
-                            {Object.keys(meals[day]).map((mealType) => (
-                                <select
-                                    key={mealType}
-                                    value={meals[day][mealType]}
-                                    onChange={(e) =>
-                                        handleMealChange(
-                                            day,
-                                            mealType,
-                                            e.target.value
-                                        )
-                                    }
-                                >
-                                    <option value="">Select a meal</option>
-                                    {recipesList?.map((meal, index) => (
-                                        <option key={index} value={meal.name}>
-                                            {meal.name}
-                                        </option>
-                                    ))}
-                                </select>
-                            ))}
-                        </div>
-                    ))}
+                    {(Object.keys(meals) as Array<keyof WeekSchedule>).map(
+                        (day) => (
+                            <div className="add__row" key={day}>
+                                <h4>{day}</h4>
+                                {(
+                                    Object.keys(meals[day]) as Array<
+                                        keyof DayMeals
+                                    >
+                                ).map((mealType) => (
+                                    <select
+                                        key={mealType}
+                                        value={meals[day][mealType]}
+                                        onChange={(e) =>
+                                            handleMealChange(
+                                                day,
+                                                mealType,
+                                                e.target.value
+                                            )
+                                        }
+                                    >
+                                        <option value="">Select a meal</option>
+                                        {recipesList?.map((meal, index) => (
+                                            <option
+                                                key={index}
+                                                value={meal.name}
+                                            >
+                                                {meal.name}
+                                            </option>
+                                        ))}
+                                    </select>
+                                ))}
+                            </div>
+                        )
+                    )}
                 </div>
             </div>
         </div>
