@@ -1,5 +1,5 @@
 import React, { useState, createContext, useEffect } from 'react';
-import type { ReactNode } from 'react';
+import type { ReactNode, Dispatch } from 'react';
 import { recipesFromDataBase } from '../data/recipes';
 import { getRecipesFromLocalStorage } from '../helpers/manageLocalStorage';
 
@@ -11,13 +11,21 @@ export type Recipe = {
     instructions: string[];
 };
 
+export const INITIAL_RECIPE: Recipe = {
+    id: '',
+    name: '',
+    description: '',
+    ingredients: [],
+    instructions: [],
+};
+
 export type RecipeContextType = {
     recipesList: Recipe[];
-    setRecipesList: React.Dispatch<React.SetStateAction<Recipe[]>>;
+    setRecipesList: Dispatch<React.SetStateAction<Recipe[]>>;
     recipe: Recipe;
-    setRecipe: React.Dispatch<React.SetStateAction<Recipe>>;
+    setRecipe: Dispatch<React.SetStateAction<Recipe>>;
     editedRecipe: Recipe | null;
-    setEditedRecipe: React.Dispatch<React.SetStateAction<Recipe | null>>;
+    setEditedRecipe: Dispatch<React.SetStateAction<Recipe>>;
     addRecipeToRecipesList: (value: Recipe) => void;
     updateRecipeInList: (value: Recipe) => void;
 };
@@ -28,14 +36,8 @@ export const RecipeContext = createContext<RecipeContextType | undefined>(
 
 function RecipeContextProvider({ children }: { children: ReactNode }) {
     const [recipesList, setRecipesList] = useState<Recipe[]>([]);
-    const [recipe, setRecipe] = useState<Recipe>({
-        id: '',
-        name: '',
-        description: '',
-        ingredients: [],
-        instructions: [],
-    });
-    const [editedRecipe, setEditedRecipe] = useState(null);
+    const [recipe, setRecipe] = useState<Recipe>(INITIAL_RECIPE);
+    const [editedRecipe, setEditedRecipe] = useState<Recipe>(INITIAL_RECIPE);
 
     useEffect(() => {
         const recipesFromLocalStorage = getRecipesFromLocalStorage();
@@ -69,8 +71,7 @@ function RecipeContextProvider({ children }: { children: ReactNode }) {
                 updateRecipeInList,
             }}
         >
-            {' '}
-            {children}{' '}
+            {children}
         </RecipeContext.Provider>
     );
 }

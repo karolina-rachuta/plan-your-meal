@@ -1,11 +1,12 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { RecipeContext } from '../../contex/RecipeContext';
+import { RecipeContext } from '../../context/RecipeContext';
 import {
     ScheduleContext,
     type DayMeals,
     type WeekSchedule,
     type Schedule,
-} from '../../contex/ScheduleContex';
+    INITIAL_SCHEDULE,
+} from '../../context/ScheduleContext';
 import { saveScheduleToLocalStorage } from '../../helpers/manageLocalStorage';
 
 const INITIAL_MEAL = {
@@ -23,15 +24,15 @@ const INITIAL_MEAL = {
     Sunday: { breakfast1: '', breakfast2: '', lunch: '', dinner: '' },
 };
 
-function EditSchedule({
-    handleScreenChange,
-}: {
-    handleScreenChange: (value: number) => void;
-}) {
+type Props = {
+    onScreenChange: (value: number) => void;
+};
+
+function EditSchedule({ onScreenChange }: Props) {
     const [meals, setMeals] = useState<WeekSchedule>(INITIAL_MEAL);
     const [planName, setPlanName] = useState<string>('');
     const [planDescription, setPlanDescription] = useState<string>('');
-    const [planWeekNumber, setPlanWeekNumber] = useState<string | number>('');
+    const [planWeekNumber, setPlanWeekNumber] = useState<number>(0);
     const [, setScheduleId] = useState<string>('');
 
     const recipeContext = useContext(RecipeContext);
@@ -54,7 +55,7 @@ function EditSchedule({
             setMeals(editSchedule.mealPlan || INITIAL_MEAL);
             setPlanName(editSchedule.name || '');
             setPlanDescription(editSchedule.description || '');
-            setPlanWeekNumber(editSchedule.number || '');
+            setPlanWeekNumber(editSchedule.number || 0);
             setScheduleId(editSchedule.id || '');
         }
     }, [editSchedule]);
@@ -94,15 +95,15 @@ function EditSchedule({
 
             setScheduleList(updatedList);
             saveScheduleToLocalStorage(newPlanMeal);
-            setEditSchedule(null);
+            setEditSchedule(INITIAL_SCHEDULE);
 
             // Reset formularza
             setMeals(INITIAL_MEAL);
             setScheduleId('');
             setPlanName('');
             setPlanDescription('');
-            setPlanWeekNumber('');
-            handleScreenChange(1);
+            setPlanWeekNumber(0);
+            onScreenChange(1);
         } else {
             alert('Please fill in all fields and select meals for each day.');
         }
@@ -119,7 +120,7 @@ function EditSchedule({
                 `week number ${inputWeekNumber} already exists, please choose different`
             );
         } else {
-            setPlanWeekNumber(e.target.value);
+            setPlanWeekNumber(Number(e.target.value));
         }
     }
 

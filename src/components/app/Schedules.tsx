@@ -1,14 +1,14 @@
 import React, { useContext } from 'react';
-import { ScheduleContext, type Schedule } from '../../contex/ScheduleContex';
+import { ScheduleContext, type Schedule } from '../../context/ScheduleContext';
 import Edit from '../../assets/edit_modify_icon.png';
 import TrashCan from '../../assets/trash_can_icon.png';
 import { deleteScheduleFromLocalStorage } from '../../helpers/manageLocalStorage';
 
-function Schedules({
-    handleScreenChange,
-}: {
-    handleScreenChange: (value: number) => void;
-}) {
+type Props = {
+    onScreenChange: (value: number) => void;
+};
+
+function Schedules({ onScreenChange }: Props) {
     const context = useContext(ScheduleContext);
     if (!context) {
         throw Error('Schedule context is undefined');
@@ -25,7 +25,7 @@ function Schedules({
         const editedSchedule = scheduleList.find((s: Schedule) => s.id === id);
         if (!editedSchedule) return;
         setEditSchedule(editedSchedule);
-        handleScreenChange(7);
+        onScreenChange(7);
     }
 
     return (

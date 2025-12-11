@@ -2,15 +2,14 @@ import React, { useContext, useState } from 'react';
 import Add from '../../assets/add_plus.png';
 import Edit from '../../assets/edit_modify_icon.png';
 import TrashCan from '../../assets/trash_can_icon.png';
-import { RecipeContext } from '../../contex/RecipeContext';
+import { RecipeContext, INITIAL_RECIPE } from '../../context/RecipeContext';
 import { saveRecipeToLocalStorage } from '../../helpers/manageLocalStorage';
 import { v4 as uuidv4 } from 'uuid';
 
-function NewRecipe({
-    handleScreenChange,
-}: {
-    handleScreenChange: (value: number) => void;
-}) {
+type Props = {
+    onScreenChange: (value: number) => void;
+};
+function NewRecipe({ onScreenChange }: Props) {
     const context = useContext(RecipeContext);
     if (!context) {
         throw Error('Context is undefined');
@@ -29,14 +28,8 @@ function NewRecipe({
             };
             saveRecipeToLocalStorage(savedRecipe);
             addRecipeToRecipesList(savedRecipe);
-            setRecipe({
-                id: '',
-                name: '',
-                description: '',
-                instructions: [],
-                ingredients: [],
-            });
-            handleScreenChange(1);
+            setRecipe(INITIAL_RECIPE);
+            onScreenChange(1);
         } else {
             alert('Please provide a recipe name and description.');
         }

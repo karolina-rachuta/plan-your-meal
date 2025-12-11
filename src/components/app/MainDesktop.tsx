@@ -1,19 +1,21 @@
 import React, { useContext, useState } from 'react';
+
+import {
+    ScheduleContext,
+    type WeekSchedule,
+} from '../../context/ScheduleContext';
+import { RecipeContext } from '../../context/RecipeContext';
+
 import Plus from '../../assets/add_plus.png';
 import Exclamation from '../../assets/exclamation_mark_round_sign_icon.png';
 import Information from '../../assets/information_line_icon.png';
 import Check from '../../assets/check_mark_icon.png';
-import {
-    ScheduleContext,
-    type WeekSchedule,
-} from '../../contex/ScheduleContex';
-import { RecipeContext } from '../../contex/RecipeContext';
 
-function MainDesktop({
-    handleScreenChange,
-}: {
-    handleScreenChange: (value: number) => void;
-}) {
+type Props = {
+    onScreenChange: (value: number) => void;
+};
+
+function MainDesktop({ onScreenChange }: Props) {
     const recipeContext = useContext(RecipeContext);
     if (!recipeContext) {
         throw Error('Recipe context is undefined');
@@ -46,14 +48,14 @@ function MainDesktop({
                 <div className="maindesktop__widget">
                     <button
                         className="widget__box"
-                        onClick={() => handleScreenChange(4)}
+                        onClick={() => onScreenChange(4)}
                     >
                         <img src={Plus} alt="Plus" className="widget__add" />
                         Add Recipe
                     </button>
                     <button
                         className="widget__box"
-                        onClick={() => handleScreenChange(5)}
+                        onClick={() => onScreenChange(5)}
                     >
                         <img src={Plus} alt="Plus" className="widget__add" />{' '}
                         Add Meal Plan

@@ -1,11 +1,11 @@
 import React, { useContext, useState } from 'react';
-import { RecipeContext } from '../../contex/RecipeContext';
+import { RecipeContext } from '../../context/RecipeContext';
 import {
     ScheduleContext,
     type WeekSchedule,
     type DayMeals,
     type Schedule,
-} from '../../contex/ScheduleContex';
+} from '../../context/ScheduleContext';
 import { saveScheduleToLocalStorage } from '../../helpers/manageLocalStorage';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -24,11 +24,11 @@ const INITIAL_SCHEDULE = {
     Sunday: { breakfast1: '', breakfast2: '', lunch: '', dinner: '' },
 };
 
-function NewSchedule({
-    handleScreenChange,
-}: {
-    handleScreenChange: (value: number) => void;
-}) {
+type Props = {
+    onScreenChange: (value: number) => void;
+};
+
+function NewSchedule({ onScreenChange }: Props) {
     const recipeContext = useContext(RecipeContext);
 
     if (!recipeContext) {
@@ -81,7 +81,7 @@ function NewSchedule({
             setPlanName('');
             setPlanDescription('');
             setPlanWeekNumber('');
-            handleScreenChange(1);
+            onScreenChange(1);
         } else {
             alert('Please fill in all fields and select meals for each day.');
         }

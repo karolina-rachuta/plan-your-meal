@@ -1,9 +1,10 @@
+import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.scss';
 import Homepage from './pages/Homepage';
 import Platform from './pages/Platform';
-import RecipeContextProvider from './contex/RecipeContext';
-import ScheduleContexProvider from './contex/ScheduleContex';
+import RecipeContextProvider from './context/RecipeContext';
+import ScheduleContexProvider from './context/ScheduleContext';
 
 function App() {
     return (

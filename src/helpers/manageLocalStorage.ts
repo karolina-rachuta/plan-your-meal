@@ -1,5 +1,5 @@
-import type { Recipe } from '../contex/RecipeContext';
-import type { Schedule } from '../contex/ScheduleContex';
+import type { Recipe } from '../context/RecipeContext';
+import type { Schedule } from '../context/ScheduleContext';
 
 export const saveRecipeToLocalStorage = (recipe: Recipe) => {
     const recipes = JSON.parse(localStorage.getItem('recipes') || '[]');

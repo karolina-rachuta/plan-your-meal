@@ -1,15 +1,17 @@
 import React, { useContext, useState } from 'react';
+
+import { RecipeContext, INITIAL_RECIPE } from '../../context/RecipeContext';
+import { saveRecipeToLocalStorage } from '../../helpers/manageLocalStorage';
+
 import Add from '../../assets/add_plus.png';
 import Edit from '../../assets/edit_modify_icon.png';
 import TrashCan from '../../assets/trash_can_icon.png';
-import { RecipeContext } from '../../contex/RecipeContext';
-import { saveRecipeToLocalStorage } from '../../helpers/manageLocalStorage';
 
-function EditRecipe({
-    handleScreenChange,
-}: {
-    handleScreenChange: (value: number) => void;
-}) {
+type Props = {
+    onScreenChange: (value: number) => void;
+};
+
+function EditRecipe({ onScreenChange }: Props) {
     const context = useContext(RecipeContext);
 
     if (!context) {
@@ -25,8 +27,8 @@ function EditRecipe({
         if (!editedRecipe) return;
         saveRecipeToLocalStorage(editedRecipe);
         updateRecipeInList(editedRecipe);
-        setEditedRecipe(null);
-        handleScreenChange(1);
+        setEditedRecipe(INITIAL_RECIPE);
+        onScreenChange(1);
     }
 
     function handleAddingInstruction() {
@@ -34,16 +36,16 @@ function EditRecipe({
         if (editingIndex !== null) {
             const updatedInstructions = [...editedRecipe.instructions];
             updatedInstructions[editingIndex] = newInstruction;
-            setEditedRecipe({
-                ...editedRecipe,
+            setEditedRecipe((prev) => ({
+                ...prev,
                 instructions: updatedInstructions,
-            });
+            }));
             setEditingIndex(null);
         } else if (newInstruction) {
-            setEditedRecipe({
-                ...editedRecipe,
-                instructions: [...editedRecipe.instructions, newInstruction],
-            });
+            setEditedRecipe((prev) => ({
+                ...prev,
+                instructions: [...prev.instructions, newInstruction],
+            }));
         }
         setNewInstruction('');
     }
@@ -53,16 +55,16 @@ function EditRecipe({
         if (editingIndex !== null) {
             const updatedIngredients = [...editedRecipe.ingredients];
             updatedIngredients[editingIndex] = newIngredient;
-            setEditedRecipe({
-                ...editedRecipe,
+            setEditedRecipe((prev) => ({
+                ...prev,
                 ingredients: updatedIngredients,
-            });
+            }));
             setEditingIndex(null);
         } else if (newIngredient) {
-            setEditedRecipe({
-                ...editedRecipe,
-                ingredients: [...editedRecipe.ingredients, newIngredient],
-            });
+            setEditedRecipe((prev) => ({
+                ...prev,
+                ingredients: [...prev.ingredients, newIngredient],
+            }));
         }
         setNewIngredient('');
     }
@@ -72,10 +74,10 @@ function EditRecipe({
         const updatedIngredients = editedRecipe.ingredients.filter(
             (_, id) => id !== index
         );
-        setEditedRecipe({
-            ...editedRecipe,
+        setEditedRecipe((prev) => ({
+            ...prev,
             ingredients: updatedIngredients,
-        });
+        }));
     }
 
     function handleDeletingInstruction(index: number) {
@@ -83,10 +85,10 @@ function EditRecipe({
         const updatedInstructions = editedRecipe.instructions.filter(
             (_, id) => id !== index
         );
-        setEditedRecipe({
-            ...editedRecipe,
+        setEditedRecipe((prev) => ({
+            ...prev,
             instructions: updatedInstructions,
-        });
+        }));
     }
 
     function handleEditInstruction(index: number) {

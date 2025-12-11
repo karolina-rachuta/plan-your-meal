@@ -20,29 +20,29 @@ function App() {
             <AppHeader />
             <div className="container platform__main">
                 <SideNavigationBar
-                    handleScreenChange={handleScreenChange}
+                    onScreenChange={handleScreenChange}
                     screenNumber={screenNumber}
                 />
                 {screenNumber === 1 && (
-                    <MainDesktop handleScreenChange={handleScreenChange} />
+                    <MainDesktop onScreenChange={handleScreenChange} />
                 )}
                 {screenNumber === 2 && (
-                    <Recipes handleScreenChange={handleScreenChange} />
+                    <Recipes onScreenChange={handleScreenChange} />
                 )}
                 {screenNumber === 3 && (
-                    <Schedules handleScreenChange={handleScreenChange} />
+                    <Schedules onScreenChange={handleScreenChange} />
                 )}
                 {screenNumber === 4 && (
-                    <NewRecipe handleScreenChange={handleScreenChange} />
+                    <NewRecipe onScreenChange={handleScreenChange} />
                 )}
                 {screenNumber === 5 && (
-                    <NewSchedule handleScreenChange={handleScreenChange} />
+                    <NewSchedule onScreenChange={handleScreenChange} />
                 )}
                 {screenNumber === 6 && (
-                    <EditRecipe handleScreenChange={handleScreenChange} />
+                    <EditRecipe onScreenChange={handleScreenChange} />
                 )}
                 {screenNumber === 7 && (
-                    <EditSchedule handleScreenChange={handleScreenChange} />
+                    <EditSchedule onScreenChange={handleScreenChange} />
                 )}
             </div>
         </div>

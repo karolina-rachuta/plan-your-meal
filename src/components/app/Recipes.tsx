@@ -1,14 +1,14 @@
 import React, { useContext } from 'react';
-import { RecipeContext, type Recipe } from '../../contex/RecipeContext';
+import { RecipeContext, type Recipe } from '../../context/RecipeContext';
 import Edit from '../../assets/edit_modify_icon.png';
 import TrashCan from '../../assets/trash_can_icon.png';
-import { deleteRecipeFromLocalStorage } from '../../helpers/manageLocalStorage.js';
+import { deleteRecipeFromLocalStorage } from '../../helpers/manageLocalStorage';
 
-function Recipes({
-    handleScreenChange,
-}: {
-    handleScreenChange: (value: number) => void;
-}) {
+type Props = {
+    onScreenChange: (value: number) => void;
+};
+
+function Recipes({ onScreenChange }: Props) {
     const context = useContext(RecipeContext);
     if (!context) {
         throw Error('Recipe context is undefined');
@@ -21,7 +21,7 @@ function Recipes({
         );
         if (!findRecipe) return;
         setEditedRecipe({ ...findRecipe });
-        handleScreenChange(6);
+        onScreenChange(6);
     }
 
     function handleDeleteRecipe(id: string) {

@@ -1,9 +1,5 @@
-import React, {
-    createContext,
-    useEffect,
-    useState,
-    type ReactNode,
-} from 'react';
+import React, { createContext, useEffect, useState } from 'react';
+import { type ReactNode, type Dispatch } from 'react';
 import { getScheduleFromLocalStorage } from '../helpers/manageLocalStorage';
 import { schedulesFromDataBase } from '../data/schedules';
 
@@ -28,21 +24,11 @@ export type Schedule = {
     id: string;
     name: string;
     description: string;
-    number: string | number;
+    number: number;
     mealPlan: WeekSchedule;
 };
 
-type ScheduleContextType = {
-    addScheduleToSchedulesList: (value: Schedule) => void;
-    scheduleList: Schedule[];
-    setScheduleList: React.Dispatch<React.SetStateAction<Schedule[]>>;
-    schedule: Schedule;
-    setSchedule: React.Dispatch<React.SetStateAction<Schedule>>;
-    editSchedule: Schedule | null;
-    setEditSchedule: React.Dispatch<React.SetStateAction<Schedule | null>>;
-};
-
-const initialWeek: WeekSchedule = {
+export const INITIAL_WEEK: WeekSchedule = {
     Monday: { breakfast1: '', breakfast2: '', lunch: '', dinner: '' },
     Tuesday: { breakfast1: '', breakfast2: '', lunch: '', dinner: '' },
     Wednesday: { breakfast1: '', breakfast2: '', lunch: '', dinner: '' },
@@ -52,20 +38,33 @@ const initialWeek: WeekSchedule = {
     Sunday: { breakfast1: '', breakfast2: '', lunch: '', dinner: '' },
 };
 
+export const INITIAL_SCHEDULE: Schedule = {
+    id: '',
+    name: '',
+    description: '',
+    number: 0,
+    mealPlan: INITIAL_WEEK,
+};
+
+type ScheduleContextType = {
+    addScheduleToSchedulesList: (value: Schedule) => void;
+    scheduleList: Schedule[];
+    setScheduleList: Dispatch<React.SetStateAction<Schedule[]>>;
+    schedule: Schedule;
+    setSchedule: Dispatch<React.SetStateAction<Schedule>>;
+    editSchedule: Schedule;
+    setEditSchedule: Dispatch<React.SetStateAction<Schedule>>;
+};
+
 export const ScheduleContext = createContext<ScheduleContextType | undefined>(
     undefined
 );
 
 function ScheduleContextProvider({ children }: { children: ReactNode }) {
     const [scheduleList, setScheduleList] = useState<Schedule[]>([]);
-    const [schedule, setSchedule] = useState<Schedule>({
-        id: '',
-        name: '',
-        description: '',
-        number: '',
-        mealPlan: initialWeek,
-    });
-    const [editSchedule, setEditSchedule] = useState<Schedule | null>(null);
+    const [schedule, setSchedule] = useState<Schedule>(INITIAL_SCHEDULE);
+    const [editSchedule, setEditSchedule] =
+        useState<Schedule>(INITIAL_SCHEDULE);
 
     useEffect(() => {
         const scheduleFromLocalStorage = getScheduleFromLocalStorage();
@@ -92,7 +91,7 @@ function ScheduleContextProvider({ children }: { children: ReactNode }) {
                 setEditSchedule,
             }}
         >
-            {children}{' '}
+            {children}
         </ScheduleContext.Provider>
     );
 }
