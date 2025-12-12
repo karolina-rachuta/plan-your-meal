@@ -95,24 +95,9 @@
                 color: $hover-color;
             }
 
-            // &::after {
-            //     content: '';
-            //     border-bottom: 2px solid transparent;
-            //     position: absolute;
-            //     width: 100%;
-            //     left: 0;
-            //     bottom: -10px;
-            //     transition: border-color 0.3s;
-            // }
-
             &:hover {
                 background: #000;
                 transform: scale(102%);
-                // transition: cubic-bezier(0.075, 0.82, 0.165, 1);
-
-                // &::after {
-                //     border-bottom-color: $hover-color;
-                // }
             }
         }
     }

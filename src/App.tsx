@@ -8,18 +8,16 @@ import ScheduleContexProvider from './context/ScheduleContext';
 
 function App() {
     return (
-        <div>
-            <ScheduleContexProvider>
-                <RecipeContextProvider>
-                    <BrowserRouter>
-                        <Routes>
-                            <Route path="/" element={<Homepage />} />
-                            <Route path="/app" element={<Platform />} />
-                        </Routes>
-                    </BrowserRouter>
-                </RecipeContextProvider>
-            </ScheduleContexProvider>
-        </div>
+        <ScheduleContexProvider>
+            <RecipeContextProvider>
+                <BrowserRouter>
+                    <Routes>
+                        <Route path="/" element={<Homepage />} />
+                        <Route path="/app" element={<Platform />} />
+                    </Routes>
+                </BrowserRouter>
+            </RecipeContextProvider>
+        </ScheduleContexProvider>
     );
 }
 
