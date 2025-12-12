@@ -1,9 +1,15 @@
-import React, { useContext, useState, useEffect } from 'react';
-import { RecipeContext } from '../../contex/RecipeContext';
-import { ScheduleContext } from '../../contex/ScheduleContex';
+import React, { useContext, useState } from 'react';
+import { RecipeContext } from '../../context/RecipeContext';
+import {
+    ScheduleContext,
+    type WeekSchedule,
+    type DayMeals,
+    type Schedule,
+} from '../../context/ScheduleContext';
 import { saveScheduleToLocalStorage } from '../../helpers/manageLocalStorage';
+import { v4 as uuidv4 } from 'uuid';
 
-const INITIAL_MEAL = {
+const INITIAL_SCHEDULE = {
     Monday: { breakfast1: '', breakfast2: '', lunch: '', dinner: '' },
     Tuesday: { breakfast1: '', breakfast2: '', lunch: '', dinner: '' },
     Wednesday: {
@@ -18,30 +24,36 @@ const INITIAL_MEAL = {
     Sunday: { breakfast1: '', breakfast2: '', lunch: '', dinner: '' },
 };
 
-function EditSchedule({ handleScreenChange }) {
-    const [meals, setMeals] = useState(INITIAL_MEAL);
-    const [planName, setPlanName] = useState('');
-    const [planDescription, setPlanDescription] = useState('');
-    const [planWeekNumber, setPlanWeekNumber] = useState('');
-    const [, setScheduleId] = useState('');
+type Props = {
+    onScreenChange: (value: number) => void;
+};
 
-    const { scheduleList, setScheduleList, setEditSchedule, editSchedule } =
-        useContext(ScheduleContext);
+function NewSchedule({ onScreenChange }: Props) {
+    const recipeContext = useContext(RecipeContext);
 
-    const { recipesList } = useContext(RecipeContext);
-    console.log(editSchedule);
+    if (!recipeContext) {
+        throw Error('Recipe Context is undefined');
+    }
+    const { recipesList } = recipeContext;
 
-    useEffect(() => {
-        if (editSchedule) {
-            setMeals(editSchedule.mealPlan || INITIAL_MEAL);
-            setPlanName(editSchedule.name || '');
-            setPlanDescription(editSchedule.description || '');
-            setPlanWeekNumber(editSchedule.number || '');
-            setScheduleId(editSchedule.id || '');
-        }
-    }, [editSchedule]);
+    const scheduleContext = useContext(ScheduleContext);
 
-    const handleMealChange = (day, mealType, value) => {
+    if (!scheduleContext) {
+        throw Error('Schedule Context is undefined');
+    }
+    const { scheduleList, addScheduleToSchedulesList } = scheduleContext;
+
+    const [meals, setMeals] = useState<WeekSchedule>(INITIAL_SCHEDULE);
+    const [planName, setPlanName] = useState<string>('');
+    const [planDescription, setPlanDescription] = useState<string>('');
+    const [planWeekNumber, setPlanWeekNumber] = useState<string | number>('');
+    const [, setScheduleId] = useState<string>('');
+
+    const handleMealChange = (
+        day: keyof WeekSchedule,
+        mealType: keyof DayMeals,
+        value: string
+    ) => {
         setMeals((prevMeals) => ({
             ...prevMeals,
             [day]: {
@@ -53,42 +65,34 @@ function EditSchedule({ handleScreenChange }) {
 
     function handleSaveMealPlan() {
         if (planName && planDescription && planWeekNumber) {
-            // Tworzymy ZAKTUALIZOWANY obiekt planu,
-            // ale z TYM SAMYM id co edytowany plan!
-            const newPlanMeal = {
-                id: editSchedule.id,
+            const generatedScheduleId = uuidv4();
+            setScheduleId(generatedScheduleId);
+            const newPlanMeal: Schedule = {
+                id: generatedScheduleId,
                 name: planName,
                 description: planDescription,
                 number: planWeekNumber,
                 mealPlan: meals,
             };
-
-            // Podmieniamy stary plan na nowy
-            const updatedList = scheduleList.map((s) =>
-                s.id === editSchedule.id ? newPlanMeal : s
-            );
-
-            setScheduleList(updatedList);
+            addScheduleToSchedulesList(newPlanMeal);
             saveScheduleToLocalStorage(newPlanMeal);
-            setEditSchedule(null);
-
-            // Reset formularza
-            setMeals(INITIAL_MEAL);
+            setMeals(INITIAL_SCHEDULE);
             setScheduleId('');
             setPlanName('');
             setPlanDescription('');
             setPlanWeekNumber('');
-            handleScreenChange(1);
+            onScreenChange(1);
         } else {
             alert('Please fill in all fields and select meals for each day.');
         }
     }
 
-    function handlePlanNumber(e) {
+    function handlePlanNumber(e: React.ChangeEvent<HTMLInputElement>) {
         const inputWeekNumber = Number(e.target.value);
         if (
             scheduleList.find(
-                (schedule) => Number(schedule.number) === inputWeekNumber
+                (schedule: Schedule) =>
+                    Number(schedule.number) === inputWeekNumber
             )
         ) {
             alert(
@@ -98,11 +102,10 @@ function EditSchedule({ handleScreenChange }) {
             setPlanWeekNumber(e.target.value);
         }
     }
-
     return (
         <div className="maindesktop__container add__container">
             <div className="add__title">
-                <h1>Edit meal plan</h1>
+                <h1>New meal plan</h1>
                 <button onClick={handleSaveMealPlan} className="btn">
                     Save and close
                 </button>
@@ -163,35 +166,44 @@ function EditSchedule({ handleScreenChange }) {
                     <h4>Dinner</h4>
                 </div>
                 <div className="add__botom add__bottom--col">
-                    {Object.keys(meals).map((day) => (
-                        <div className="add__row" key={day}>
-                            <h4>{day}</h4>
-                            {Object.keys(meals[day]).map((mealType) => (
-                                <select
-                                    key={mealType}
-                                    value={meals[day][mealType]}
-                                    onChange={(e) =>
-                                        handleMealChange(
-                                            day,
-                                            mealType,
-                                            e.target.value
-                                        )
-                                    }
-                                >
-                                    <option value="">Select a meal</option>{' '}
-                                    {recipesList?.map((meal, index) => (
-                                        <option key={index} value={meal.name}>
-                                            {meal.name}
-                                        </option>
-                                    ))}
-                                </select>
-                            ))}
-                        </div>
-                    ))}
+                    {(Object.keys(meals) as Array<keyof WeekSchedule>).map(
+                        (day) => (
+                            <div className="add__row" key={day}>
+                                <h4>{day}</h4>
+                                {(
+                                    Object.keys(meals[day]) as Array<
+                                        keyof DayMeals
+                                    >
+                                ).map((mealType) => (
+                                    <select
+                                        key={mealType}
+                                        value={meals[day][mealType]}
+                                        onChange={(e) =>
+                                            handleMealChange(
+                                                day,
+                                                mealType,
+                                                e.target.value
+                                            )
+                                        }
+                                    >
+                                        <option value="">Select a meal</option>
+                                        {recipesList?.map((meal, index) => (
+                                            <option
+                                                key={index}
+                                                value={meal.name}
+                                            >
+                                                {meal.name}
+                                            </option>
+                                        ))}
+                                    </select>
+                                ))}
+                            </div>
+                        )
+                    )}
                 </div>
             </div>
         </div>
     );
 }
 
-export default EditSchedule;
+export default NewSchedule;

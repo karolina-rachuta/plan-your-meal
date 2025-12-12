@@ -1,6 +1,10 @@
 import React from 'react';
 
-function SideNavigationBar({ handleScreenChange, screenNumber }) {
+type Props = {
+    onScreenChange: (value: number) => void;
+    screenNumber: number;
+};
+function SideNavigationBar({ onScreenChange, screenNumber }: Props) {
     return (
         <div className="sidebar__container">
             <p
@@ -9,7 +13,7 @@ function SideNavigationBar({ handleScreenChange, screenNumber }) {
                         ? 'sidebar__navlink active'
                         : 'sidebar__navlink'
                 }
-                onClick={() => handleScreenChange(1)}
+                onClick={() => onScreenChange(1)}
             >
                 Main Desktop
             </p>
@@ -19,7 +23,7 @@ function SideNavigationBar({ handleScreenChange, screenNumber }) {
                         ? 'sidebar__navlink active'
                         : 'sidebar__navlink'
                 }
-                onClick={() => handleScreenChange(2)}
+                onClick={() => onScreenChange(2)}
             >
                 Recipes
             </p>
@@ -29,7 +33,7 @@ function SideNavigationBar({ handleScreenChange, screenNumber }) {
                         ? 'sidebar__navlink active'
                         : 'sidebar__navlink'
                 }
-                onClick={() => handleScreenChange(3)}
+                onClick={() => onScreenChange(3)}
             >
                 Meal Plans
             </p>

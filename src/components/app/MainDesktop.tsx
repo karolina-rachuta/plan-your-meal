@@ -1,31 +1,46 @@
 import React, { useContext, useState } from 'react';
+
+import {
+    ScheduleContext,
+    type WeekSchedule,
+} from '../../context/ScheduleContext';
+import { RecipeContext } from '../../context/RecipeContext';
+
 import Plus from '../../assets/add_plus.png';
 import Exclamation from '../../assets/exclamation_mark_round_sign_icon.png';
 import Information from '../../assets/information_line_icon.png';
 import Check from '../../assets/check_mark_icon.png';
-import { ScheduleContext } from '../../contex/ScheduleContex';
-import { RecipeContext } from '../../contex/RecipeContext';
 
-function MainDesktop({ handleScreenChange }) {
-    const { recipesList } = useContext(RecipeContext);
-    const { scheduleList } = useContext(ScheduleContext);
-    const [planIndex, setPlanIndex] = useState(1);
-    const selectedPlan = scheduleList.find(
-        (schedule) => Number(schedule.number) === planIndex
-    );
+type Props = {
+    onScreenChange: (value: number) => void;
+};
+
+function MainDesktop({ onScreenChange }: Props) {
+    const recipeContext = useContext(RecipeContext);
+    if (!recipeContext) {
+        throw Error('Recipe context is undefined');
+    }
+    const { recipesList } = recipeContext;
+    const scheduleContext = useContext(ScheduleContext);
+    if (!scheduleContext) {
+        throw Error('Schedule context is umdefined');
+    }
+    const { scheduleList } = scheduleContext;
+
+    const [planIndex, setPlanIndex] = useState<number>(0);
+
+    const selectedPlan = scheduleList[planIndex] || undefined;
+
     const totalRecipes = recipesList.length;
-    const totalSchedules = scheduleList.length;
 
     function handlePrev() {
-        if (planIndex > 1) {
-            setPlanIndex((prev) => prev - 1);
-        }
+        setPlanIndex((prev) => (prev > 0 ? prev - 1 : prev));
     }
 
     function handleNext() {
-        if (planIndex < totalSchedules) {
-            setPlanIndex((prev) => prev + 1);
-        }
+        setPlanIndex((prev) =>
+            prev < scheduleList.length - 1 ? prev + 1 : prev
+        );
     }
     return (
         <div className="maindesktop__container">
@@ -33,14 +48,14 @@ function MainDesktop({ handleScreenChange }) {
                 <div className="maindesktop__widget">
                     <button
                         className="widget__box"
-                        onClick={() => handleScreenChange(4)}
+                        onClick={() => onScreenChange(4)}
                     >
                         <img src={Plus} alt="Plus" className="widget__add" />
                         Add Recipe
                     </button>
                     <button
                         className="widget__box"
-                        onClick={() => handleScreenChange(5)}
+                        onClick={() => onScreenChange(5)}
                     >
                         <img src={Plus} alt="Plus" className="widget__add" />{' '}
                         Add Meal Plan
@@ -85,7 +100,9 @@ function MainDesktop({ handleScreenChange }) {
                                 <div className="mealplan__table" key={day}>
                                     <h4 className="mealPlan__header">{day}</h4>
                                     {Object.entries(
-                                        selectedPlan.mealPlan[day]
+                                        selectedPlan.mealPlan[
+                                            day as keyof WeekSchedule
+                                        ]
                                     ).map(([key, value]) => (
                                         <p
                                             className="mealPlan__row"

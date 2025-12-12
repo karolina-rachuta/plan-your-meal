@@ -1,20 +1,30 @@
 import React, { useContext } from 'react';
-import { RecipeContext } from '../../contex/RecipeContext';
+import { RecipeContext, type Recipe } from '../../context/RecipeContext';
 import Edit from '../../assets/edit_modify_icon.png';
 import TrashCan from '../../assets/trash_can_icon.png';
-import { deleteRecipeFromLocalStorage } from '../../helpers/manageLocalStorage.js';
+import { deleteRecipeFromLocalStorage } from '../../helpers/manageLocalStorage';
 
-function Recipes({ handleScreenChange }) {
-    const { recipesList, setRecipesList, setEditedRecipe } =
-        useContext(RecipeContext);
+type Props = {
+    onScreenChange: (value: number) => void;
+};
 
-    function handleEditRecipe(id) {
-        const findRecipe = recipesList.find((recipe) => recipe.id === id);
+function Recipes({ onScreenChange }: Props) {
+    const context = useContext(RecipeContext);
+    if (!context) {
+        throw Error('Recipe context is undefined');
+    }
+    const { recipesList, setRecipesList, setEditedRecipe } = context;
+
+    function handleEditRecipe(id: string) {
+        const findRecipe = recipesList.find(
+            (recipe: Recipe) => recipe.id === id
+        );
+        if (!findRecipe) return;
         setEditedRecipe({ ...findRecipe });
-        handleScreenChange(6);
+        onScreenChange(6);
     }
 
-    function handleDeleteRecipe(id) {
+    function handleDeleteRecipe(id: string) {
         const updatedRecipes = recipesList.filter((r) => r.id !== id);
         deleteRecipeFromLocalStorage(id);
         setRecipesList(updatedRecipes);
