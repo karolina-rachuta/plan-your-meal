@@ -1,45 +1,48 @@
 import React, { useState } from 'react';
-
-import useRecipeContext from '../../context/useRecipeContext';
-import { INITIAL_RECIPE } from '../../context/RecipeContext';
-import { saveRecipeToLocalStorage } from '../../helpers/manageLocalStorage';
-
 import Add from '../../assets/add_plus.png';
 import Edit from '../../assets/edit_modify_icon.png';
 import TrashCan from '../../assets/trash_can_icon.png';
+import { INITIAL_RECIPE } from '../../context/RecipeContext';
+import { saveRecipeToLocalStorage } from '../../helpers/manageLocalStorage';
+import { v4 as uuidv4 } from 'uuid';
+import useRecipeContext from '../../context/useRecipeContext';
 
 type Props = {
     onScreenChange: (value: number) => void;
 };
-
-function EditRecipe({ onScreenChange }: Props) {
-    const { editedRecipe, setEditedRecipe, updateRecipeInList } =
-        useRecipeContext();
+function RecipeForm({ onScreenChange }: Props) {
+    const { addRecipeToRecipesList, recipe, setRecipe } = useRecipeContext();
 
     const [newInstruction, setNewInstruction] = useState<string>('');
     const [newIngredient, setNewIngredient] = useState<string>('');
     const [editingIndex, setEditingIndex] = useState<number | null>(null);
 
     function handleSavingRecipe() {
-        if (!editedRecipe) return;
-        saveRecipeToLocalStorage(editedRecipe);
-        updateRecipeInList(editedRecipe);
-        setEditedRecipe(INITIAL_RECIPE);
-        onScreenChange(1);
+        if (recipe.name && recipe.description) {
+            const savedRecipe = {
+                ...recipe,
+                id: uuidv4(),
+            };
+            saveRecipeToLocalStorage(savedRecipe);
+            addRecipeToRecipesList(savedRecipe);
+            setRecipe(INITIAL_RECIPE);
+            onScreenChange(1);
+        } else {
+            alert('Please provide a recipe name and description.');
+        }
     }
 
     function handleAddingInstruction() {
-        if (!editedRecipe) return;
         if (editingIndex !== null) {
-            const updatedInstructions = [...editedRecipe.instructions];
+            const updatedInstructions = [...recipe.instructions];
             updatedInstructions[editingIndex] = newInstruction;
-            setEditedRecipe((prev) => ({
+            setRecipe((prev) => ({
                 ...prev,
                 instructions: updatedInstructions,
             }));
             setEditingIndex(null);
         } else if (newInstruction) {
-            setEditedRecipe((prev) => ({
+            setRecipe((prev) => ({
                 ...prev,
                 instructions: [...prev.instructions, newInstruction],
             }));
@@ -48,17 +51,16 @@ function EditRecipe({ onScreenChange }: Props) {
     }
 
     function handleAddingIngredient() {
-        if (!editedRecipe) return;
         if (editingIndex !== null) {
-            const updatedIngredients = [...editedRecipe.ingredients];
+            const updatedIngredients = [...recipe.ingredients];
             updatedIngredients[editingIndex] = newIngredient;
-            setEditedRecipe((prev) => ({
+            setRecipe((prev) => ({
                 ...prev,
                 ingredients: updatedIngredients,
             }));
             setEditingIndex(null);
         } else if (newIngredient) {
-            setEditedRecipe((prev) => ({
+            setRecipe((prev) => ({
                 ...prev,
                 ingredients: [...prev.ingredients, newIngredient],
             }));
@@ -67,45 +69,36 @@ function EditRecipe({ onScreenChange }: Props) {
     }
 
     function handleDeletingIngredient(index: number) {
-        if (!editedRecipe) return;
-        const updatedIngredients = editedRecipe.ingredients.filter(
+        const updatedIngredients = recipe.ingredients.filter(
             (_, id) => id !== index
         );
-        setEditedRecipe((prev) => ({
+        setRecipe((prev) => ({
             ...prev,
             ingredients: updatedIngredients,
         }));
     }
 
     function handleDeletingInstruction(index: number) {
-        if (!editedRecipe) return;
-        const updatedInstructions = editedRecipe.instructions.filter(
+        const updatedInstructions = recipe.instructions.filter(
             (_, id) => id !== index
         );
-        setEditedRecipe((prev) => ({
-            ...prev,
-            instructions: updatedInstructions,
-        }));
+        setRecipe((prev) => ({ ...prev, instructions: updatedInstructions }));
     }
 
     function handleEditInstruction(index: number) {
         setEditingIndex(index);
-        if (!editedRecipe) return;
-        setNewInstruction(editedRecipe.instructions[index] ?? '');
+        setNewInstruction(recipe.instructions[index] ?? '');
     }
 
     function handleEditIngredient(index: number) {
         setEditingIndex(index);
-        if (!editedRecipe) return;
-        setNewIngredient(editedRecipe.ingredients[index] ?? '');
+        setNewIngredient(recipe.ingredients[index] ?? '');
     }
-
-    if (!editedRecipe) return <div>Loading...</div>;
 
     return (
         <div className="maindesktop__container add__container">
             <div className="add__title">
-                <h1>Edit Recipe</h1>
+                <h1>Add Recipe</h1>
                 <button onClick={handleSavingRecipe} className="btn">
                     Save and Close
                 </button>
@@ -119,12 +112,9 @@ function EditRecipe({ onScreenChange }: Props) {
                         type="text"
                         id="recipe_name"
                         className="add__input"
-                        value={editedRecipe.name}
+                        value={recipe.name}
                         onChange={(e) =>
-                            setEditedRecipe({
-                                ...editedRecipe,
-                                name: e.target.value,
-                            })
+                            setRecipe({ ...recipe, name: e.target.value })
                         }
                     />
                 </div>
@@ -136,10 +126,10 @@ function EditRecipe({ onScreenChange }: Props) {
                         type="text"
                         id="recipe_description"
                         className="add__input"
-                        value={editedRecipe.description}
+                        value={recipe.description}
                         onChange={(e) =>
-                            setEditedRecipe({
-                                ...editedRecipe,
+                            setRecipe({
+                                ...recipe,
                                 description: e.target.value,
                             })
                         }
@@ -171,29 +161,27 @@ function EditRecipe({ onScreenChange }: Props) {
                     </div>
                     <div>
                         <ol>
-                            {editedRecipe.instructions.map(
-                                (instruction, index) => (
-                                    <li key={index}>
-                                        {instruction}
-                                        <img
-                                            src={Edit}
-                                            alt="Pencil"
-                                            className="icon icon--small"
-                                            onClick={() =>
-                                                handleEditInstruction(index)
-                                            }
-                                        />
-                                        <img
-                                            src={TrashCan}
-                                            alt="Trash can"
-                                            className="icon icon--small"
-                                            onClick={() =>
-                                                handleDeletingInstruction(index)
-                                            }
-                                        />
-                                    </li>
-                                )
-                            )}
+                            {recipe.instructions.map((instruction, index) => (
+                                <li key={index}>
+                                    {instruction}
+                                    <img
+                                        src={Edit}
+                                        alt="Pencil"
+                                        className="icon icon--small"
+                                        onClick={() =>
+                                            handleEditInstruction(index)
+                                        }
+                                    />
+                                    <img
+                                        src={TrashCan}
+                                        alt="Trash can"
+                                        className="icon icon--small"
+                                        onClick={() =>
+                                            handleDeletingInstruction(index)
+                                        }
+                                    />
+                                </li>
+                            ))}
                         </ol>
                     </div>
                 </div>
@@ -216,34 +204,32 @@ function EditRecipe({ onScreenChange }: Props) {
                             onClick={handleAddingIngredient}
                             className="icon__container "
                         >
-                            <img src={Add} alt="Plus" className="icon" />
+                            <img src={Add} alt="plus" className="icon" />
                         </button>
                     </div>
                     <div>
                         <ol>
-                            {editedRecipe.ingredients.map(
-                                (ingredient, index) => (
-                                    <li key={index}>
-                                        {ingredient}
-                                        <img
-                                            src={Edit}
-                                            alt="Pencil"
-                                            className="icon icon--small"
-                                            onClick={() =>
-                                                handleEditIngredient(index)
-                                            }
-                                        />
-                                        <img
-                                            src={TrashCan}
-                                            alt="Trash can"
-                                            className="icon icon--small"
-                                            onClick={() =>
-                                                handleDeletingIngredient(index)
-                                            }
-                                        />
-                                    </li>
-                                )
-                            )}
+                            {recipe.ingredients.map((ingredient, index) => (
+                                <li key={index}>
+                                    {ingredient}
+                                    <img
+                                        src={Edit}
+                                        alt="Pencil"
+                                        className="icon icon--small"
+                                        onClick={() =>
+                                            handleEditIngredient(index)
+                                        }
+                                    />
+                                    <img
+                                        src={TrashCan}
+                                        alt="Trash can"
+                                        className="icon icon--small"
+                                        onClick={() =>
+                                            handleDeletingIngredient(index)
+                                        }
+                                    />
+                                </li>
+                            ))}
                         </ol>
                     </div>
                 </div>
@@ -252,4 +238,4 @@ function EditRecipe({ onScreenChange }: Props) {
     );
 }
 
-export default EditRecipe;
+export default RecipeForm;

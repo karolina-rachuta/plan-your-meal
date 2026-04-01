@@ -1,19 +1,17 @@
-import React, { useContext } from 'react';
-import { ScheduleContext, type Schedule } from '../../context/ScheduleContext';
+import React from 'react';
+import { type Schedule } from '../../context/ScheduleContext';
 import Edit from '../../assets/edit_modify_icon.png';
 import TrashCan from '../../assets/trash_can_icon.png';
 import { deleteScheduleFromLocalStorage } from '../../helpers/manageLocalStorage';
+import useScheduleContext from '../../context/useScheduleContext';
 
 type Props = {
     onScreenChange: (value: number) => void;
 };
 
 function Schedules({ onScreenChange }: Props) {
-    const context = useContext(ScheduleContext);
-    if (!context) {
-        throw Error('Schedule context is undefined');
-    }
-    const { scheduleList, setScheduleList, setEditSchedule } = context;
+    const { scheduleList, setScheduleList, setEditSchedule } =
+        useScheduleContext();
 
     function handleDelete(id: string) {
         const updatedList = scheduleList.filter((s: Schedule) => s.id !== id);

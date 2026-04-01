@@ -1,20 +1,20 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
+
+import useRecipeContext from '../../context/useRecipeContext';
+import { INITIAL_RECIPE } from '../../context/RecipeContext';
+import { saveRecipeToLocalStorage } from '../../helpers/manageLocalStorage';
+import { v4 as uuidv4 } from 'uuid';
+
 import Add from '../../assets/add_plus.png';
 import Edit from '../../assets/edit_modify_icon.png';
 import TrashCan from '../../assets/trash_can_icon.png';
-import { RecipeContext, INITIAL_RECIPE } from '../../context/RecipeContext';
-import { saveRecipeToLocalStorage } from '../../helpers/manageLocalStorage';
-import { v4 as uuidv4 } from 'uuid';
 
 type Props = {
     onScreenChange: (value: number) => void;
 };
+
 function NewRecipe({ onScreenChange }: Props) {
-    const context = useContext(RecipeContext);
-    if (!context) {
-        throw Error('Context is undefined');
-    }
-    const { addRecipeToRecipesList, recipe, setRecipe } = context;
+    const { addRecipeToRecipesList, recipe, setRecipe } = useRecipeContext();
 
     const [newInstruction, setNewInstruction] = useState<string>('');
     const [newIngredient, setNewIngredient] = useState<string>('');
