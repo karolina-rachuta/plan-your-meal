@@ -1,15 +1,15 @@
-import React, { useContext, useState, useEffect } from 'react';
-import { RecipeContext } from '../../context/RecipeContext';
+import React, { useState, useEffect } from 'react';
 import {
-    ScheduleContext,
     type DayMeals,
     type WeekSchedule,
     type Schedule,
     INITIAL_SCHEDULE,
 } from '../../context/ScheduleContext';
 import { saveScheduleToLocalStorage } from '../../helpers/manageLocalStorage';
+import useScheduleContext from '../../context/useScheduleContext';
+import useRecipeContext from '../../context/useRecipeContext';
 
-const INITIAL_MEAL = {
+const INITIAL_MEAL: WeekSchedule = {
     Monday: { breakfast1: '', breakfast2: '', lunch: '', dinner: '' },
     Tuesday: { breakfast1: '', breakfast2: '', lunch: '', dinner: '' },
     Wednesday: {
@@ -35,20 +35,10 @@ function EditSchedule({ onScreenChange }: Props) {
     const [planWeekNumber, setPlanWeekNumber] = useState<number>(0);
     const [, setScheduleId] = useState<string>('');
 
-    const recipeContext = useContext(RecipeContext);
+    const { recipesList } = useRecipeContext();
 
-    if (!recipeContext) {
-        throw Error('Recipe Context is undefined');
-    }
-    const { recipesList } = recipeContext;
-
-    const scheduleContext = useContext(ScheduleContext);
-
-    if (!scheduleContext) {
-        throw Error('Schedule Context is undefined');
-    }
     const { scheduleList, setScheduleList, setEditSchedule, editSchedule } =
-        scheduleContext;
+        useScheduleContext();
 
     useEffect(() => {
         if (editSchedule) {
@@ -89,7 +79,7 @@ function EditSchedule({ onScreenChange }: Props) {
 
             // Podmieniamy stary plan na nowy
 
-            const updatedList: Schedule[] = scheduleList.map((s) =>
+            const updatedList = scheduleList.map<Schedule>((s) =>
                 s.id === editSchedule?.id ? newPlanMeal : s
             );
 

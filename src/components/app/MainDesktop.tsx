@@ -1,31 +1,21 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 
-import {
-    ScheduleContext,
-    type WeekSchedule,
-} from '../../context/ScheduleContext';
-import { RecipeContext } from '../../context/RecipeContext';
+import { type WeekSchedule } from '../../context/ScheduleContext';
 
 import Plus from '../../assets/add_plus.png';
 import Exclamation from '../../assets/exclamation_mark_round_sign_icon.png';
 import Information from '../../assets/information_line_icon.png';
 import Check from '../../assets/check_mark_icon.png';
+import useRecipeContext from '../../context/useRecipeContext';
+import useScheduleContext from '../../context/useScheduleContext';
 
 type Props = {
     onScreenChange: (value: number) => void;
 };
 
 function MainDesktop({ onScreenChange }: Props) {
-    const recipeContext = useContext(RecipeContext);
-    if (!recipeContext) {
-        throw Error('Recipe context is undefined');
-    }
-    const { recipesList } = recipeContext;
-    const scheduleContext = useContext(ScheduleContext);
-    if (!scheduleContext) {
-        throw Error('Schedule context is umdefined');
-    }
-    const { scheduleList } = scheduleContext;
+    const { recipesList } = useRecipeContext();
+    const { scheduleList } = useScheduleContext();
 
     const [planIndex, setPlanIndex] = useState<number>(0);
 

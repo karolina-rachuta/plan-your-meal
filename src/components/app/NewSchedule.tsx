@@ -1,13 +1,13 @@
-import React, { useContext, useState } from 'react';
-import { RecipeContext } from '../../context/RecipeContext';
+import React, { useState } from 'react';
 import {
-    ScheduleContext,
     type WeekSchedule,
     type DayMeals,
     type Schedule,
 } from '../../context/ScheduleContext';
 import { saveScheduleToLocalStorage } from '../../helpers/manageLocalStorage';
 import { v4 as uuidv4 } from 'uuid';
+import useRecipeContext from '../../context/useRecipeContext';
+import useScheduleContext from '../../context/useScheduleContext';
 
 const INITIAL_SCHEDULE = {
     Monday: { breakfast1: '', breakfast2: '', lunch: '', dinner: '' },
@@ -29,24 +29,13 @@ type Props = {
 };
 
 function NewSchedule({ onScreenChange }: Props) {
-    const recipeContext = useContext(RecipeContext);
-
-    if (!recipeContext) {
-        throw Error('Recipe Context is undefined');
-    }
-    const { recipesList } = recipeContext;
-
-    const scheduleContext = useContext(ScheduleContext);
-
-    if (!scheduleContext) {
-        throw Error('Schedule Context is undefined');
-    }
-    const { scheduleList, addScheduleToSchedulesList } = scheduleContext;
+    const { recipesList } = useRecipeContext();
+    const { scheduleList, addScheduleToSchedulesList } = useScheduleContext();
 
     const [meals, setMeals] = useState<WeekSchedule>(INITIAL_SCHEDULE);
     const [planName, setPlanName] = useState<string>('');
     const [planDescription, setPlanDescription] = useState<string>('');
-    const [planWeekNumber, setPlanWeekNumber] = useState<string | number>('');
+    const [planWeekNumber, setPlanWeekNumber] = useState<number>(0);
     const [, setScheduleId] = useState<string>('');
 
     const handleMealChange = (
@@ -80,7 +69,7 @@ function NewSchedule({ onScreenChange }: Props) {
             setScheduleId('');
             setPlanName('');
             setPlanDescription('');
-            setPlanWeekNumber('');
+            setPlanWeekNumber(0);
             onScreenChange(1);
         } else {
             alert('Please fill in all fields and select meals for each day.');
@@ -99,7 +88,7 @@ function NewSchedule({ onScreenChange }: Props) {
                 `week number ${inputWeekNumber} already exists, please choose different`
             );
         } else {
-            setPlanWeekNumber(e.target.value);
+            setPlanWeekNumber(Number(e.target.value));
         }
     }
     return (
@@ -187,9 +176,9 @@ function NewSchedule({ onScreenChange }: Props) {
                                         }
                                     >
                                         <option value="">Select a meal</option>
-                                        {recipesList?.map((meal, index) => (
+                                        {recipesList?.map((meal) => (
                                             <option
-                                                key={index}
+                                                key={meal.id}
                                                 value={meal.name}
                                             >
                                                 {meal.name}

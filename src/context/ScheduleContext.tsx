@@ -1,5 +1,5 @@
 import React, { createContext, useEffect, useState } from 'react';
-import { type ReactNode, type Dispatch } from 'react';
+import type { ReactNode, Dispatch, SetStateAction } from 'react';
 import { getScheduleFromLocalStorage } from '../helpers/manageLocalStorage';
 import { schedulesFromDataBase } from '../data/schedules';
 
@@ -10,15 +10,16 @@ export type DayMeals = {
     dinner: string;
 };
 
-export type WeekSchedule = {
-    Monday: DayMeals;
-    Tuesday: DayMeals;
-    Wednesday: DayMeals;
-    Thursday: DayMeals;
-    Friday: DayMeals;
-    Saturday: DayMeals;
-    Sunday: DayMeals;
-};
+type DayOfWeek =
+    | 'Monday'
+    | 'Tuesday'
+    | 'Wednesday'
+    | 'Thursday'
+    | 'Friday'
+    | 'Saturday'
+    | 'Sunday';
+
+export type WeekSchedule = Record<DayOfWeek, DayMeals>;
 
 export type Schedule = {
     id: string;
@@ -49,11 +50,11 @@ export const INITIAL_SCHEDULE: Schedule = {
 type ScheduleContextType = {
     addScheduleToSchedulesList: (value: Schedule) => void;
     scheduleList: Schedule[];
-    setScheduleList: Dispatch<React.SetStateAction<Schedule[]>>;
+    setScheduleList: Dispatch<SetStateAction<Schedule[]>>;
     schedule: Schedule;
-    setSchedule: Dispatch<React.SetStateAction<Schedule>>;
+    setSchedule: Dispatch<SetStateAction<Schedule>>;
     editSchedule: Schedule;
-    setEditSchedule: Dispatch<React.SetStateAction<Schedule>>;
+    setEditSchedule: Dispatch<SetStateAction<Schedule>>;
 };
 
 export const ScheduleContext = createContext<ScheduleContextType | undefined>(

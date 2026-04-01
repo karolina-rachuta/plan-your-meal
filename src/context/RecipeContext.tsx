@@ -1,5 +1,5 @@
 import React, { useState, createContext, useEffect } from 'react';
-import type { ReactNode, Dispatch } from 'react';
+import type { ReactNode, Dispatch, SetStateAction } from 'react';
 import { recipesFromDataBase } from '../data/recipes';
 import { getRecipesFromLocalStorage } from '../helpers/manageLocalStorage';
 
@@ -21,11 +21,11 @@ export const INITIAL_RECIPE: Recipe = {
 
 export type RecipeContextType = {
     recipesList: Recipe[];
-    setRecipesList: Dispatch<React.SetStateAction<Recipe[]>>;
+    setRecipesList: Dispatch<SetStateAction<Recipe[]>>;
     recipe: Recipe;
-    setRecipe: Dispatch<React.SetStateAction<Recipe>>;
+    setRecipe: Dispatch<SetStateAction<Recipe>>;
     editedRecipe: Recipe | null;
-    setEditedRecipe: Dispatch<React.SetStateAction<Recipe>>;
+    setEditedRecipe: Dispatch<SetStateAction<Recipe>>;
     addRecipeToRecipesList: (value: Recipe) => void;
     updateRecipeInList: (value: Recipe) => void;
 };

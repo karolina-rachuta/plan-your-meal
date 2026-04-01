@@ -1,19 +1,16 @@
-import React, { useContext } from 'react';
-import { RecipeContext, type Recipe } from '../../context/RecipeContext';
+import React from 'react';
+import { type Recipe } from '../../context/RecipeContext';
 import Edit from '../../assets/edit_modify_icon.png';
 import TrashCan from '../../assets/trash_can_icon.png';
 import { deleteRecipeFromLocalStorage } from '../../helpers/manageLocalStorage';
+import useRecipeContext from '../../context/useRecipeContext';
 
 type Props = {
     onScreenChange: (value: number) => void;
 };
 
 function Recipes({ onScreenChange }: Props) {
-    const context = useContext(RecipeContext);
-    if (!context) {
-        throw Error('Recipe context is undefined');
-    }
-    const { recipesList, setRecipesList, setEditedRecipe } = context;
+    const { recipesList, setRecipesList, setEditedRecipe } = useRecipeContext();
 
     function handleEditRecipe(id: string) {
         const findRecipe = recipesList.find(
