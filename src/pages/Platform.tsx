@@ -17,7 +17,7 @@ function App() {
     };
     return (
         <div>
-            <AppHeader />
+            {/* <AppHeader /> */}
             <div className="container platform__main">
                 <SideNavigationBar
                     onScreenChange={handleScreenChange}

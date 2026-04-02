@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 
 import { type WeekSchedule } from '../../context/ScheduleContext';
 
-import Plus from '../../assets/add_plus.png';
+import Plus from '../../assets/plus.svg';
+import Plus_orange from '../../assets/plus_orange.svg';
 import Exclamation from '../../assets/exclamation_mark_round_sign_icon.png';
 import Information from '../../assets/information_line_icon.png';
 import Check from '../../assets/check_mark_icon.png';
@@ -40,35 +41,47 @@ function MainDesktop({ onScreenChange }: Props) {
                         className="widget__box"
                         onClick={() => onScreenChange(4)}
                     >
-                        <img src={Plus} alt="Plus" className="widget__add" />
+                        <div className="widget__border">
+                            <img
+                                src={Plus}
+                                alt="Plus"
+                                className="widget__add"
+                            />
+                        </div>
                         Add Recipe
                     </button>
                     <button
                         className="widget__box"
                         onClick={() => onScreenChange(5)}
                     >
-                        <img src={Plus} alt="Plus" className="widget__add" />{' '}
+                        <div className="widget__border widget__border--right">
+                            <img
+                                src={Plus_orange}
+                                alt="Plus"
+                                className="widget__add"
+                            />
+                        </div>
                         Add Meal Plan
                     </button>
                 </div>
                 <div className="maindesktop__widget maindesktop__widget--col">
-                    <p className="widget__box widget__box--right">
+                    <div className="widget__box widget__box--right widget__box--green">
                         <img
                             src={Information}
                             alt="Information"
                             className="widget__add--right"
                         />
                         You have {totalRecipes} recipes
-                    </p>
-                    <p className="widget__box widget__box--right">
+                    </div>
+                    <div className="widget__box widget__box--right">
                         <img
                             src={Exclamation}
                             alt="Exclamation"
                             className="widget__add--right"
                         />
                         Remember to add a meal plan!
-                    </p>
-                    <p className="widget__box widget__box--right">
+                    </div>
+                    <div className="widget__box widget__box--right widget__box--green">
                         <img
                             src={Check}
                             alt="Check"
@@ -76,7 +89,7 @@ function MainDesktop({ onScreenChange }: Props) {
                         />{' '}
                         So glad you&apos;re here! Happy planning and bon
                         appétit!
-                    </p>
+                    </div>
                 </div>
             </div>
             <div className="maindesktop__container add__container">
