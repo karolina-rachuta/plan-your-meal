@@ -2,6 +2,8 @@
     background-color: $bg-color;
     width: 100%;
     display: flex;
+    justify-content: center;
+    align-items: center;
     flex-direction: column;
     gap: 20px;
     padding: 20px 10px;
@@ -9,8 +11,9 @@
 
     .maindesktop__top {
         width: 100%;
+        max-width: 1600px;
         display: flex;
-        justify-content: space-evenly;
+        justify-content: space-between;
 
         @media only screen and (max-width: 900px) {
             gap: 20px;
@@ -18,7 +21,7 @@
         }
 
         .maindesktop__widget {
-            width: 30%;
+            width: 40%;
             text-align: center;
             display: flex;
             flex-direction: row;
@@ -27,10 +30,14 @@
             &--col {
                 flex-direction: column;
                 width: 60%;
+
+                @media only screen and (max-width: 900px) {
+                    width: 100%;
+                }
             }
 
-            @media only screen and (max-width: 560px) {
-                flex-direction: column;
+            @media only screen and (max-width: 900px) {
+                width: 100%;
             }
 
             .widget__box {
@@ -48,8 +55,9 @@
                 color: $font-color;
                 border-radius: $border-radius;
 
-                @media only screen and (max-width: 560px) {
+                @media only screen and (max-width: 900px) {
                     flex-direction: column;
+                    padding: 30px;
                     width: 80%;
                     height: 80%;
                 }
@@ -97,15 +105,11 @@
                     }
 
                     .widget__add {
-                     width: 12px;
+                        width: 12px;
                     }
                 }
             }
         }
-    }
-
-    .maindesktop-navigation {
-        width: 100%;
     }
 
     .maindesktop__bottom {
@@ -118,9 +122,33 @@
     align-items: center;
 }
 
+.mealPlan__titleBox {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding-inline: 10px;
+
+    .mealPlan__title {
+        padding: 5px;
+        text-align: center;
+        color: $font-color;
+
+        &--span {
+            color: $primary-color;
+        }
+    }
+
+    .maindesktop-navigation {
+        width: 100%;
+        max-width: 100px;
+    }
+}
+
 .add__botom {
     display: flex;
+    max-width: 1600px;
     border-radius: $border-radius;
+    color: $font-color;
 
     @media only screen and (max-width: 860px) {
         flex-direction: column;
@@ -134,30 +162,27 @@
     }
 
     .mealplan__table {
-        border-right: 1px solid black;
         display: flex;
         width: 100%;
         flex-direction: column;
         justify-content: center;
-        border-top: 1px solid black;
+        border-top: 1px solid $border-color;
 
         &:first-of-type {
-            border-left: 1px solid black;
+            border-left: 1px solid $border-color;
+        }
+        &:last-of-type {
+            border-right: 1px solid $border-color;
         }
 
         @media screen and (max-width: 860px) {
-            border-left: 1px solid black;
+            border-left: 1px solid $border-color;
         }
-    }
-
-    .mealPlan__title {
-        padding: 5px;
-        text-align: center;
     }
 
     .mealPlan__row {
         padding: 5px;
-        border-bottom: 1px black solid;
+        border-bottom: 1px $border-color solid;
         height: 100px;
         display: flex;
         flex-direction: column;
@@ -165,10 +190,11 @@
     }
 
     .mealPlan__header {
-        text-transform: capitalize;
+        text-transform: uppercase;
+        color: $font-color;
         height: 50px;
         padding: 5px;
-        border-bottom: 1px black solid;
+        border-bottom: 1px $border-color solid;
         display: flex;
         flex-direction: column;
         justify-content: center;

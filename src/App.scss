@@ -28,6 +28,7 @@ html {
 .container {
     width: 100%;
     margin-inline: auto;
+    background-color: $bg-color;
 }
 
 .icon {
@@ -41,12 +42,12 @@ html {
 }
 
 .btn {
-    background-color: $second-color;
-    padding: 5px 10px;
-    border-radius: 3px;
-    border: none;
-    color: #fff;
+    color: $font-color;
+    background-color: $bg-card-color;
+    border: 1px solid $border-color;
+    border-radius: $border-radius;
     font-size: 16px;
+    padding: 10px 15px;
     cursor: pointer;
 }
 
