@@ -29,10 +29,11 @@ html {
     width: 100%;
     margin-inline: auto;
     background-color: $bg-color;
+    color: $font-color;
 }
 
 .icon {
-    width: 24px;
+    width: 12px;
 
     &--small {
         width: 16px;
@@ -51,14 +52,32 @@ html {
     cursor: pointer;
 }
 
+.btn-secondary {
+    color: $bg-color;
+    background-color: $primary-color;
+    border: 1px solid $border-color;
+    border-radius: $border-radius;
+    font-size: 16px;
+    padding: 10px 15px;
+    cursor: pointer;
+}
+
 .icon__container {
-    padding: 0;
+    padding: 5px;
     display: flex;
     align-items: center;
     justify-content: center;
-    border: none;
+    border: 1px solid $border-color;
+    border-radius: $border-radius;
+    background-color: $bg-card-color;
+    cursor: pointer;
 }
 
 input {
-    font-size: 16px;
+    font-size: 14px;
+}
+
+.sub__hdl {
+    color: $font-color;
+    font-weight: 700;
 }

@@ -30,8 +30,8 @@
 
         &.active {
             padding: 20px;
-            border-left: 5px solid $hover-color;
-            color: $hover-color;
+            border-left: 5px solid $primary-color;
+            color: $primary-muted;
 
             @media only screen and (max-width: 580px) {
                 border-left: none;
@@ -42,7 +42,7 @@
                 font-weight: bold;
                 position: absolute;
                 right: 30px;
-                color: $hover-color;
+                color: $primary-color;
 
                 @media only screen and (max-width: 580px) {
                     content: '▼';
@@ -52,8 +52,8 @@
         }
 
         &:hover {
-            border-left: 5px solid $hover-color;
-            color: $hover-color;
+            border-left: 5px solid $primary-color;
+            color: $primary-muted;
 
             @media only screen and (max-width: 580px) {
                 border-left: none;
@@ -64,7 +64,7 @@
                 font-weight: bold;
                 position: absolute;
                 right: 30px;
-                color: $hover-color;
+                color: $primary-color;
 
                 @media only screen and (max-width: 580px) {
                     content: '▼';

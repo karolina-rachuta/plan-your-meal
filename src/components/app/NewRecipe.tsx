@@ -5,7 +5,7 @@ import { INITIAL_RECIPE } from '../../context/RecipeContext';
 import { saveRecipeToLocalStorage } from '../../helpers/manageLocalStorage';
 import { v4 as uuidv4 } from 'uuid';
 
-import Add from '../../assets/add_plus.png';
+import Add from '../../assets/plus.svg';
 import Edit from '../../assets/edit_modify_icon.png';
 import TrashCan from '../../assets/trash_can_icon.png';
 
@@ -102,9 +102,17 @@ function NewRecipe({ onScreenChange }: Props) {
         <div className="maindesktop__container add__container">
             <div className="add__title">
                 <h1>Add Recipe</h1>
-                <button onClick={handleSavingRecipe} className="btn">
-                    Save and Close
-                </button>
+                <div className="btn-box">
+                    <button onClick={() => onScreenChange(1)} className="btn">
+                        Back
+                    </button>
+                    <button
+                        onClick={handleSavingRecipe}
+                        className="btn-secondary"
+                    >
+                        Save and Close
+                    </button>
+                </div>
             </div>
             <div className="add__top">
                 <div className="add__row">
@@ -141,7 +149,7 @@ function NewRecipe({ onScreenChange }: Props) {
             </div>
             <div className="add__bottom">
                 <div className="add__col">
-                    <h2 className="add__hdl">Instructions</h2>
+                    <h2 className="sub__hdl">Instructions</h2>
                     <div className="input__row">
                         <input
                             type="text"
@@ -149,6 +157,7 @@ function NewRecipe({ onScreenChange }: Props) {
                             onChange={(e) => {
                                 setNewInstruction(e.target.value);
                             }}
+                            placeholder="step 1"
                             onKeyDown={(e) => {
                                 if (e.key === 'Enter') {
                                     handleAddingInstruction();
@@ -163,37 +172,48 @@ function NewRecipe({ onScreenChange }: Props) {
                         </button>
                     </div>
                     <div>
-                        <ol>
-                            {recipe.instructions.map((instruction, index) => (
-                                <li key={index}>
-                                    {instruction}
-                                    <img
-                                        src={Edit}
-                                        alt="Pencil"
-                                        className="icon icon--small"
-                                        onClick={() =>
-                                            handleEditInstruction(index)
-                                        }
-                                    />
-                                    <img
-                                        src={TrashCan}
-                                        alt="Trash can"
-                                        className="icon icon--small"
-                                        onClick={() =>
-                                            handleDeletingInstruction(index)
-                                        }
-                                    />
-                                </li>
-                            ))}
-                        </ol>
+                        {recipe.instructions.length > 0 && (
+                            <ol>
+                                {recipe.instructions.map(
+                                    (instruction, index) => (
+                                        <li key={index}>
+                                            {instruction}
+                                            <div>
+                                                <img
+                                                    src={Edit}
+                                                    alt="Pencil"
+                                                    className="icon icon--small"
+                                                    onClick={() =>
+                                                        handleEditInstruction(
+                                                            index
+                                                        )
+                                                    }
+                                                />
+                                                <img
+                                                    src={TrashCan}
+                                                    alt="Trash can"
+                                                    className="icon icon--small"
+                                                    onClick={() =>
+                                                        handleDeletingInstruction(
+                                                            index
+                                                        )
+                                                    }
+                                                />
+                                            </div>
+                                        </li>
+                                    )
+                                )}
+                            </ol>
+                        )}
                     </div>
                 </div>
                 <div className="add__col">
-                    <h2 className="add__hdl">Ingredients</h2>
+                    <h2 className="sub__hdl">Ingredients</h2>
                     <div className="input__row">
                         <input
                             type="text"
                             value={newIngredient}
+                            placeholder="ingredient 1"
                             onChange={(e) => {
                                 setNewIngredient(e.target.value);
                             }}
@@ -205,35 +225,41 @@ function NewRecipe({ onScreenChange }: Props) {
                         />
                         <button
                             onClick={handleAddingIngredient}
-                            className="icon__container "
+                            className="icon__container"
                         >
                             <img src={Add} alt="plus" className="icon" />
                         </button>
                     </div>
                     <div>
-                        <ol>
-                            {recipe.ingredients.map((ingredient, index) => (
-                                <li key={index}>
-                                    {ingredient}
-                                    <img
-                                        src={Edit}
-                                        alt="Pencil"
-                                        className="icon icon--small"
-                                        onClick={() =>
-                                            handleEditIngredient(index)
-                                        }
-                                    />
-                                    <img
-                                        src={TrashCan}
-                                        alt="Trash can"
-                                        className="icon icon--small"
-                                        onClick={() =>
-                                            handleDeletingIngredient(index)
-                                        }
-                                    />
-                                </li>
-                            ))}
-                        </ol>
+                        {recipe.ingredients.length > 0 && (
+                            <ol>
+                                {recipe.ingredients.map((ingredient, index) => (
+                                    <li key={index}>
+                                        {ingredient}
+                                        <div>
+                                            <img
+                                                src={Edit}
+                                                alt="Pencil"
+                                                className="icon icon--small"
+                                                onClick={() =>
+                                                    handleEditIngredient(index)
+                                                }
+                                            />
+                                            <img
+                                                src={TrashCan}
+                                                alt="Trash can"
+                                                className="icon icon--small"
+                                                onClick={() =>
+                                                    handleDeletingIngredient(
+                                                        index
+                                                    )
+                                                }
+                                            />
+                                        </div>
+                                    </li>
+                                ))}
+                            </ol>
+                        )}
                     </div>
                 </div>
             </div>
