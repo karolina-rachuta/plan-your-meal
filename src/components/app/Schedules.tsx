@@ -1,9 +1,18 @@
 import React from 'react';
 import { type Schedule } from '../../context/ScheduleContext';
-import Edit from '../../assets/edit_modify_icon.png';
-import TrashCan from '../../assets/trash_can_icon.png';
+import Edit from '../../assets/pencil.svg';
+import TrashCan from '../../assets/trash.svg';
 import { deleteScheduleFromLocalStorage } from '../../helpers/manageLocalStorage';
 import useScheduleContext from '../../context/useScheduleContext';
+
+type Table_Hdl = (typeof TABLE_HEADERS)[number];
+const TABLE_HEADERS = [
+    'ID',
+    'NAME',
+    'INGREDIENTS',
+    'INSTRUCTION',
+    'ACTION',
+] as const;
 
 type Props = {
     onScreenChange: (value: number) => void;
@@ -28,13 +37,13 @@ function Schedules({ onScreenChange }: Props) {
 
     return (
         <div className="maindesktop__container table__container">
-            <h1>List of meal plans</h1>
+            <h1 className="hdl">List of meal plans</h1>
             <div className="row row--schedule">
-                <p>ID</p>
-                <p>NAME</p>
-                <p>DESCRIPTION</p>
-                <p>WEEK</p>
-                <p>ACTION</p>
+                {TABLE_HEADERS.map((header, index) => (
+                    <p className="row__hdl" key={index}>
+                        {header}
+                    </p>
+                ))}
             </div>
             {scheduleList
                 .sort((a, b) => Number(a.number) - Number(b.number))

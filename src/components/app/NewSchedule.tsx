@@ -94,10 +94,18 @@ function NewSchedule({ onScreenChange }: Props) {
     return (
         <div className="maindesktop__container add__container">
             <div className="add__title">
-                <h1>New meal plan</h1>
-                <button onClick={handleSaveMealPlan} className="btn">
-                    Save and close
-                </button>
+                <h1 className="hdl">New meal plan</h1>
+                <div className="btn-box">
+                    <button onClick={() => onScreenChange(1)} className="btn">
+                        Back
+                    </button>
+                    <button
+                        onClick={handleSaveMealPlan}
+                        className="btn-secondary"
+                    >
+                        Save and Close
+                    </button>
+                </div>
             </div>
             <div className="add__top">
                 <div className="add__row">
@@ -149,16 +157,18 @@ function NewSchedule({ onScreenChange }: Props) {
             <div className="add__botom add__bottom--col">
                 <div className="add__row">
                     <h4> </h4>
-                    <h4>Breakfast I</h4>
-                    <h4>Breakfast II</h4>
-                    <h4>Lunch</h4>
-                    <h4>Dinner</h4>
+                    <h4 className="table__hdl">Breakfast I</h4>
+                    <h4 className="table__hdl">Breakfast II</h4>
+                    <h4 className="table__hdl">Lunch</h4>
+                    <h4 className="table__hdl">Dinner</h4>
                 </div>
                 <div className="add__botom add__bottom--col">
                     {(Object.keys(meals) as Array<keyof WeekSchedule>).map(
                         (day) => (
                             <div className="add__row" key={day}>
-                                <h4>{day}</h4>
+                                <h4 className="table__hdl table__hdl--green">
+                                    {day}
+                                </h4>
                                 {(
                                     Object.keys(meals[day]) as Array<
                                         keyof DayMeals

@@ -1,7 +1,10 @@
 .table__container {
     display: flex;
     flex-direction: column;
+    align-items: start;
+    justify-content: start;
     width: 100%;
+    padding-inline: 20px;
 
     @media screen and (max-width: 580px) {
         h1 {
@@ -26,8 +29,13 @@
         width: 100%;
         display: grid;
         grid-template-columns: 0.25fr 1.25fr 1.5fr 1.5fr 0.5fr;
-        border-bottom: 1px solid black;
+        border-bottom: 1px solid $border-color;
         padding-bottom: 20px;
+
+        .row__hdl {
+            color: $font-color-input;
+            font-weight: 600;
+        }
 
         li {
             list-style-position: inside;
@@ -40,9 +48,9 @@
 
         .action__btn {
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
             gap: 10px;
-            justify-content: center;
+            justify-content: start;
             align-items: start;
 
             @media screen and (max-width: 580px) {

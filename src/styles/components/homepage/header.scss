@@ -1,7 +1,7 @@
 .header {
     width: 100%;
     padding-inline: 30px;
-    background-color: $third-color;
+    background-color: $primary-color;
     color: $bg-color;
     padding-top: 10px;
     padding-bottom: 10px;
@@ -96,7 +96,8 @@
             }
 
             &:hover {
-                background: #000;
+                color: $primary-color;
+                background: $primary-muted;
                 transform: scale(102%);
             }
         }

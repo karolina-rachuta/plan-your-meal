@@ -2,7 +2,7 @@
     background-color: $third-color;
     width: 30%;
     max-width: 250px;
-    height: 100vh;
+    // height: 100%;
     color: $bg-color;
     display: flex;
     flex-direction: column;
@@ -14,6 +14,23 @@
         justify-content: space-evenly;
         max-width: 100vw;
         height: 70px;
+        padding-right: 20px;
+    }
+
+    .logo__box {
+        padding: 20px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        .hdl__logo {
+            width: 100%;
+            padding-top: 5px;
+            font-family: 'charmonmanregular', sans-serif;
+            color: $bg-color;
+            font-size: 18px;
+            text-decoration: none;
+        }
     }
 
     .sidebar__navlink {

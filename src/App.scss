@@ -21,6 +21,7 @@
 body,
 html {
     font-size: $font-base-size;
+    background-color: $bg-color;
     width: 100%;
     margin-inline: auto;
 }
@@ -28,7 +29,6 @@ html {
 .container {
     width: 100%;
     margin-inline: auto;
-    background-color: $bg-color;
     color: $font-color;
 }
 
@@ -80,4 +80,29 @@ input {
 .sub__hdl {
     color: $font-color;
     font-weight: 700;
+}
+
+.logo {
+    width: 36px;
+}
+
+.hdl {
+    font-family: 'DMSerif', serif;
+    font-size: 32px;
+    font-weight: 500;
+    color: $font-color;
+    margin-bottom: 20px;
+    text-align: left;
+    width: 100%;
+}
+
+.sub__hdl {
+    font-family: 'DMSerif', serif;
+    font-size: 24px;
+    font-weight: 500;
+    color: $font-color;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: left;
+    width: 100%;
 }

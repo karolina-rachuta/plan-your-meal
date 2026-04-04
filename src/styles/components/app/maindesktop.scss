@@ -12,6 +12,7 @@
     .maindesktop__top {
         width: 100%;
         max-width: 1600px;
+        padding-inline: 20px;
         display: flex;
         justify-content: space-between;
 
@@ -74,12 +75,6 @@
                     background-color: $secondary-muted;
                     color: $font-color;
 
-                    // @media only screen and (max-width: 560px) {
-                    //     flex-direction: column;
-                    //     width: 100%;
-                    //     text-align: center;
-                    // }
-
                     .widget__add--right {
                         width: 25px;
                     }
@@ -120,6 +115,7 @@
 
 .add__container {
     align-items: center;
+    justify-content: start;
 }
 
 .mealPlan__titleBox {
@@ -147,8 +143,10 @@
 .add__botom {
     display: flex;
     max-width: 1600px;
+    width: 100%;
     border-radius: $border-radius;
     color: $font-color;
+    background-color: $bg-card-color;
 
     @media only screen and (max-width: 860px) {
         flex-direction: column;
@@ -191,7 +189,7 @@
 
     .mealPlan__header {
         text-transform: uppercase;
-        color: $font-color;
+        color: $font-color-input;
         height: 50px;
         padding: 5px;
         border-bottom: 1px $border-color solid;

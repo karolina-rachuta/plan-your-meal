@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import AppHeader from '../components/app/AppHeader';
 import SideNavigationBar from '../components/app/SideNavigationBar';
 import MainDesktop from '../components/app/MainDesktop';
 import Recipes from '../components/app/Recipes';
@@ -17,7 +16,6 @@ function App() {
     };
     return (
         <div>
-            {/* <AppHeader /> */}
             <div className="container platform__main">
                 <SideNavigationBar
                     onScreenChange={handleScreenChange}

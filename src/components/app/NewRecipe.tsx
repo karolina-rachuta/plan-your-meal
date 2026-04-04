@@ -6,8 +6,8 @@ import { saveRecipeToLocalStorage } from '../../helpers/manageLocalStorage';
 import { v4 as uuidv4 } from 'uuid';
 
 import Add from '../../assets/plus.svg';
-import Edit from '../../assets/edit_modify_icon.png';
-import TrashCan from '../../assets/trash_can_icon.png';
+import Edit from '../../assets/pencil.svg';
+import TrashCan from '../../assets/trash.svg';
 
 type Props = {
     onScreenChange: (value: number) => void;
@@ -101,7 +101,7 @@ function NewRecipe({ onScreenChange }: Props) {
     return (
         <div className="maindesktop__container add__container">
             <div className="add__title">
-                <h1>Add Recipe</h1>
+                <h1 className="hdl">Add Recipe</h1>
                 <div className="btn-box">
                     <button onClick={() => onScreenChange(1)} className="btn">
                         Back

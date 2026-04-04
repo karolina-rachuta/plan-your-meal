@@ -4,9 +4,9 @@ import { type WeekSchedule } from '../../context/ScheduleContext';
 
 import Plus from '../../assets/plus.svg';
 import Plus_orange from '../../assets/plus_orange.svg';
-import Exclamation from '../../assets/exclamation_mark_round_sign_icon.png';
-import Information from '../../assets/information_line_icon.png';
-import Check from '../../assets/check_mark_icon.png';
+import Exclamation from '../../assets/exclamation.svg';
+import Information from '../../assets/information.svg';
+import Check from '../../assets/tick.svg';
 import useRecipeContext from '../../context/useRecipeContext';
 import useScheduleContext from '../../context/useScheduleContext';
 
@@ -36,6 +36,7 @@ function MainDesktop({ onScreenChange }: Props) {
     return (
         <div className="container">
             <div className="maindesktop__container">
+                <h1 className="hdl">Good morning!</h1>
                 <div className="maindesktop__top">
                     <div className="maindesktop__widget">
                         <button

@@ -16,6 +16,12 @@
             width: 50%;
             justify-content: end;
             gap: 10px;
+
+            @media only screen and (max-width: 580px) {
+                flex-direction: column;
+                width: 100%;
+                align-self: end;
+            }
         }
     }
 
@@ -109,8 +115,6 @@
                 margin-top: 20px;
 
                 li {
-                    margin-top: 0px;
-                    margin-bottom: 0px;
                     display: flex;
                     justify-content: space-between;
                 }
@@ -121,6 +125,14 @@
     .add__bottom--col {
         display: flex;
         flex-direction: column;
+        gap: 10px;
+        margin-bottom: 10px;
+        width: 100%;
+        background: $bg-card-color;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        padding-inline: 10px ;
+        border-radius: $border-radius;
 
         .add__row {
             display: grid;
@@ -128,12 +140,33 @@
             gap: 5px;
             width: 100%;
             margin-bottom: 5px;
-            border-bottom: 1px solid black;
+            border-bottom: 1px solid $border-color;
+            padding-bottom: 20px;
+            // @media only screen and (max-width: 580px) {
+            //     grid-template-columns: 1fr;
+            // }
 
             h4,
             select {
                 max-width: 140px;
                 width: 100%;
+            }
+
+            .table__hdl {
+                text-transform: uppercase;
+                color: $font-color-input;
+                font-size: 14px;
+            }
+
+            .table__hdl--green {
+                color: $primary-color;
+            }
+
+            select {
+                border: 1px solid $border-color;
+                background-color: $bg-card-color;
+                padding: 10px;
+                border-radius: $border-radius;
             }
         }
     }

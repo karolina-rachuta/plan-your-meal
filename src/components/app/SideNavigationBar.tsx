@@ -1,4 +1,6 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import Logo from '../../assets/logo.svg';
 
 type Props = {
     onScreenChange: (value: number) => void;
@@ -7,6 +9,12 @@ type Props = {
 function SideNavigationBar({ onScreenChange, screenNumber }: Props) {
     return (
         <div className="sidebar__container">
+            <div className="logo__box">
+                <img className="logo" src={Logo} alt="Kitchen utensils" />
+                <Link to="/" className="hdl__logo">
+                    Plan Your Meal
+                </Link>
+            </div>
             <p
                 className={
                     screenNumber === 1
